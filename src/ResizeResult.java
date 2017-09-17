@@ -1,11 +1,20 @@
 import java.util.Objects;
 
+/**
+ * This class encapsulates number placeholders required for calculations.
+ */
 public class ResizeResult {
 
     private int[] resizedNum1;
     private int[] resizedNum2;
     private int[] resizedResult; // is null in case of multiplication
 
+    /**
+     * Initializes a new instance of {@code ResizeResult}
+     * @param num1 The first number.
+     * @param num2 The second number
+     * @param mult A flag defining whether placeholders must be created for the multiplication operation.
+     */
     public ResizeResult(Number num1, Number num2, boolean mult) {
         Objects.requireNonNull(num1);
         Objects.requireNonNull(num2);
