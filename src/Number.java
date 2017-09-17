@@ -1,6 +1,4 @@
-import java.util.Arrays;
 import java.util.Objects;
-import java.util.stream.IntStream;
 
 /**
  * Represents a single number to perform calculations on.
@@ -69,7 +67,7 @@ public class Number implements Comparable<Number> {
     /**
      * Adds two {@code Number}.
      * @param num The number to add with {@code this}.
-     * @return A new {@code Number}, which is the result of the addition.
+     * @return A new {@code Number}, which is the result of addition.
      */
     public Number add(Number num) {
         validateBase(this, num);
@@ -123,7 +121,7 @@ public class Number implements Comparable<Number> {
     /**
      * Subtracts from {@code this}.
      * @param num The number to subtract from {@code this}.
-     * @return A new {@code Number}, which is the result of the subtraction.
+     * @return A new {@code Number}, which is the result of subtraction.
      */
     public Number subtract(Number num) {
         validateBase(this, num);
@@ -178,6 +176,11 @@ public class Number implements Comparable<Number> {
         return new Number(res, this.base, true);
     }
 
+    /**
+     * Multiplies two {@code Number}.
+     * @param num The number to multiply with {@code this}.
+     * @return A new {@code Number}, which is the result of multiplication.
+     */
     public Number miltiply(Number num) {
         validateBase(this, num);
 
