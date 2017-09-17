@@ -217,7 +217,8 @@ public class Number implements Comparable<Number> {
             result = result.add(new Number(addWith, b, true));
         }
 
-        return result;
+        // check if the sign must be changed. pos XOR neg -> true
+        return (this.isPositive() ^ num.isPositive()) ? result.negate() : result;
     }
 
     /**
