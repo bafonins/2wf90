@@ -6,6 +6,10 @@ import java.util.Objects;
  */
 public class Number implements Comparable<Number> {
 
+    /**
+     * An array of all possible values that can appear within this assignment.
+     * This table is used to map raw integers to a proper string representation.
+     */
     private static String[] values = {
             "0",
             "1",
@@ -25,9 +29,14 @@ public class Number implements Comparable<Number> {
             "F"
     };
 
+    /**
+     * Words of {@code this} number. Note, that {@code words[0]} holds the last digit in a number.
+     * So, the number '123' is stored as words[0] = 3, words[1] = 2, words[2] = 1.
+     * This is done for convenient output and to simplify operations.
+     */
+    private int[] words;
     private boolean isPositive = true;
     private int base;
-    private int[] words;
 
     /**
      * Initializes a new instance of {@code Number}.
@@ -211,8 +220,13 @@ public class Number implements Comparable<Number> {
         return result;
     }
 
-    public Number karatsuba(Number n) {
-        validateBase(this, n);
+    /**
+     * Multiplies two {@code Number} using the Karatsuba method.
+     * @param num The number to multiply with {@code this}.
+     * @return A new {@code Number}, which is the result of multiplication.
+     */
+    public Number karatsuba(Number num) {
+        validateBase(this, num);
         return null;
     }
 
@@ -249,6 +263,14 @@ public class Number implements Comparable<Number> {
         return this.isPositive;
     }
 
+    /**
+     * Makes a new array of words from {@code this} number of length {@code size} and optionally
+     * shift the words by {@shift} cells. It can be used to acquire a copy of the existing array or
+     * to extend it.
+     * @param size The size of a new array.
+     * @param shift The number of cells to shift the numbers.
+     * @return A new array of length {@code size} shifted by {@code shift} cells to the left.
+     */
     public int[] rebase(int size, int shift) {
         if (size < this.words.length) {
             throw new IllegalArgumentException("Cannot perform rebase, since size(" +
@@ -263,6 +285,10 @@ public class Number implements Comparable<Number> {
         return newWords;
     }
 
+    /**
+     * Changes the sing of {@code this} number.
+     * @return Negated version of {@code this} number.
+     */
     public Number negate() {
         return new Number(this.words, this.base, !this.isPositive);
     }
