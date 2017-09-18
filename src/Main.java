@@ -23,17 +23,14 @@ public class Main {
                 Number res = null;
                 switch (ex.getOperation()) {
                     case ADD:
-//                        res = num1.add(num2);
-//                        break;
-                        continue;
+                        res = num1.add(num2);
+                        break;
                     case SUBTRACT:
-//                        continue;
                         res = num1.subtract(num2);
                         break;
                     case MULTIPLY:
-                        continue;
-//                        res = num1.multiply(num2);
-//                        break;
+                        res = num1.multiply(num2);
+                        break;
                     default:
                         continue;
                 }
