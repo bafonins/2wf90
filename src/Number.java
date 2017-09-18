@@ -205,7 +205,7 @@ public class Number implements Comparable<Number> {
             intermediate[ i ][ intermediate[ i ].length - 1 ] = c;
         }
 
-        // then simply sum them up by shifting the next number by one
+        // then simply sum them up by shifting the next number by i
         Number result = new Number(intermediate[ 0 ], b, true);
         for (int i = 1; i < intermediate.length; i++) {
             int[] addWith = new Number(intermediate[ i ], b, true).rebase(result.getLength() + 1, i);
