@@ -208,7 +208,7 @@ public class Number implements Comparable<Number> {
         // then simply sum them up by shifting the next number by i
         Number result = new Number(intermediate[ 0 ], b, true);
         for (int i = 1; i < intermediate.length; i++) {
-            int[] addWith = new Number(intermediate[ i ], b, true).rebase(result.getLength() + 1, i);
+            int[] addWith = new Number(intermediate[ i ], b, true).rebaseLeft(result.getLength() + 1, i);
             result = result.add(new Number(addWith, b, true));
         }
 
@@ -259,15 +259,17 @@ public class Number implements Comparable<Number> {
         return this.isPositive;
     }
 
+
     /**
      * Makes a new array of words from {@code this} number of length {@code size} and optionally
-     * shift the words by {@shift} cells. It can be used to acquire a copy of the existing array or
-     * to extend it.
+     * shift the words by {@shift} cells from the left. It can be used to acquire a copy of the existing array,
+     * to extend it or fill the least significant bits with 0.
+     * For example, [1,2,3] -> rebaseLeft(3, 2) -> [0,0,1,2,3]
      * @param size The size of a new array.
-     * @param shift The number of cells to shift the numbers.
+     * @param shift The number of cells to shift the numbers to the right.
      * @return A new array of length {@code size} shifted by {@code shift} cells to the left.
      */
-    public int[] rebase(int size, int shift) {
+    public int[] rebaseLeft(int size, int shift) {
         if (size < this.words.length) {
             throw new IllegalArgumentException("Cannot perform rebase, since size(" +
                     size + ") is smaller than the size of the current number(" + this.words.length + ")");
@@ -276,6 +278,29 @@ public class Number implements Comparable<Number> {
         int[] newWords = new int[size + shift];
         for (int i = 0; i < this.words.length; i++) {
             newWords[ i + shift ] = this.words[ i ];
+        }
+
+        return newWords;
+    }
+
+    /**
+     * Makes a new array of words from {@code this} number of length {@code size} and optionally
+     * shift the words by {@shift} cells from the right. It can be used to acquire a copy of the existing array,
+     * to extend it or fill the most significant bits with 0.
+     * For example, [1,2,3] -> rebaseRight(3, 2) -> [1,2,3,0,0]
+     * @param size The size of a new array.
+     * @param shift The number of cells to shift the numbers to the left.
+     * @return A new array of length {@code size} shifted by {@code shift} cells to the left.
+     */
+    public int[] rebaseRight(int size, int shift) {
+        if (size < this.words.length) {
+            throw new IllegalArgumentException("Cannot perform rebase, since size(" +
+                    size + ") is smaller than the size of the current number(" + this.words.length + ")");
+        }
+
+        int[] newWords = new int[size + shift];
+        for (int i = 0; i < this.words.length; i++) {
+            newWords[ i ] = this.words[ i ];
         }
 
         return newWords;
