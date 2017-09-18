@@ -1,4 +1,4 @@
-
+import java.util.Iterator;
 
 /**
  * The main class that is responsible for starting the program.
@@ -14,13 +14,41 @@ public class Main {
 
         try {
             Main.reader = new InputReader(args[0]);
-            //todo
+            Iterator<ExecutionCase> it = Main.reader.iterator();
+
+            while (it.hasNext()) {
+                ExecutionCase ex = it.next();
+                Number num1 = new Number(ex.getFst(), ex.getRadix());
+                Number num2 = new Number(ex.getSnd(), ex.getRadix());
+                Number res = null;
+                switch (ex.getOperation()) {
+                    case ADD:
+//                        res = num1.add(num2);
+//                        break;
+                        continue;
+                    case SUBTRACT:
+//                        continue;
+                        res = num1.subtract(num2);
+                        break;
+                    case MULTIPLY:
+                        continue;
+//                        res = num1.multiply(num2);
+//                        break;
+                    default:
+                        continue;
+                }
+
+                if (ex.getResult().isPresent()) {
+                    System.out.println("answer = " + ex.getResult().get());
+                    System.out.println("result = " + res);
+                    System.out.println();
+                }
+            }
         } catch (Exception e) {
             System.out.println(e);
         } finally {
             reader.close();
         }
-
 
     }
 }

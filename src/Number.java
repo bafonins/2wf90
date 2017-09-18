@@ -149,12 +149,7 @@ public class Number implements Comparable<Number> {
         // call subtract on the second number, since
         // -num1 - (-num2) = num2 - num1
         if (!this.isPositive() && !num.isPositive()) {
-            return num.subtract(this.negate());
-        }
-
-        // equal number, simply return 0
-        if (this.compareTo(num) == 0) {
-            return new Number(new int[]{ 0 }, this.base, false);
+            return num.negate().subtract(this.negate());
         }
 
         // we want the first number to be larger than the second one
@@ -172,7 +167,7 @@ public class Number implements Comparable<Number> {
         int b = this.getBase();
         int c = 0; // carry
 
-        for (int i = num1.length - 1; i >= 0; i--) {
+        for (int i = 0; i < num1.length; i++) {
             res[ i ] = num1[ i ] - num2[ i ] - c;
             if (res[ i ] < 0) {
                 res[ i ] += b;
@@ -190,7 +185,7 @@ public class Number implements Comparable<Number> {
      * @param num The number to multiply with {@code this}.
      * @return A new {@code Number}, which is the result of multiplication.
      */
-    public Number miltiply(Number num) {
+    public Number multiply(Number num) {
         validateBase(this, num);
 
         ResizeResult resizedResult = new ResizeResult(this, num, true);
@@ -347,16 +342,58 @@ public class Number implements Comparable<Number> {
     public int compareTo(Number o) {
         this.validateBase(this, o);
 
-        int val1 = 0;
-        for (int i = 0; i < this.words.length; i++) {
-            val1 += this.words[i] * ((int) Math.pow(this.base, i));
+
+        if (this.isPositive() && !o.isPositive()) {
+            return 1;
         }
 
-        int val2 = 0;
-        for (int i = 0; i < o.words.length; i++) {
-            val2 += o.words[i] * ((int) Math.pow(o.getBase(), i));
+        if (!this.isPositive() && o.isPositive()) {
+            return -1;
         }
 
-        return Integer.compare(val1, val2);
+        boolean bothNegative = !this.isPositive() && !o.isPositive();
+
+        int i = this.words.length - 1;
+        int j = o.words.length - 1;
+
+        // eliminate redundant zeros in the beginning
+        while (i >= 0 && this.words[i] == 0) { i--; }
+        while (j >= 0 && o.words[j] == 0) { j--; }
+
+        if (i == -1 && j == -1) { // both are zeros
+            return 0;
+        } else if (i == -1 && j != -1) { // first is zero
+            return o.isPositive() ? -1 : 1;
+        } else if (i != -1 && j == -1) { // second is zero
+            return this.isPositive() ? 1 : -1;
+        }
+
+        // check for length
+        if (i > j && bothNegative) {
+            return -1;
+        } else if (i < j && bothNegative) {
+            return 1;
+        } else if (i > j) {
+            return 1;
+        } else if (i < j) {
+            return -1;
+        }
+
+        int res = 0;
+
+        while (i >= 0 && j >= 0) {
+            if (this.words[i] > o.words[j] && bothNegative) {
+                return -1;
+            } else if (this.words[i] < o.words[j] && bothNegative) {
+                return 1;
+            } else if (this.words[i] > o.words[j]) {
+                return 1;
+            } else if (this.words[i] < o.words[j]) {
+                return -1;
+            }
+            i--; j--;
+        }
+
+        return res;
     }
 }
