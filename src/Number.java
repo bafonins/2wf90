@@ -21,12 +21,12 @@ public class Number implements Comparable<Number> {
             "7",
             "8",
             "9",
-            "A",
-            "B",
-            "C",
-            "D",
-            "E",
-            "F"
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f"
     };
 
     /**
@@ -57,7 +57,7 @@ public class Number implements Comparable<Number> {
 
         this.base = base;
         this.words = this.getWords(number);
-        this.isPositive = '-' != number.charAt(0);
+        this.isPositive = ('-' != number.charAt(0));
     }
 
     /**
@@ -83,12 +83,12 @@ public class Number implements Comparable<Number> {
 
         // delegate to subtraction
         if (this.isPositive() && !num.isPositive()) {
-            return this.subtract(num);
+            return this.subtract(num.negate());
         }
 
         //delegate to subtraction
         if (!this.isPositive() && num.isPositive()) {
-            return num.subtract(this);
+            return num.subtract(this.negate());
         }
 
         // add and change the sign
@@ -322,7 +322,7 @@ public class Number implements Comparable<Number> {
                 continue;
             }
 
-            range = ch - 55; // check if A-F
+            range = ch - 87; // check if a-f
             if (range >= 10 && range <= 15) {
                 ws[ length - i - 1 ] = range;
                 continue;
