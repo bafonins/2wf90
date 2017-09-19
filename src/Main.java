@@ -33,9 +33,8 @@ public class Main {
                         res = num1.multiply(num2);
                         break;
                     case KARATSUBA:
-//                        res = num1.karatsuba(num2);
-//                        break;
-                        continue;
+                        res = num1.karatsuba(num2);
+                        break;
                     default:
                         throw new IllegalArgumentException("Unknown operation");
                 }

@@ -123,7 +123,7 @@ public class Number implements Comparable<Number> {
             res[ res.length - 1 ] = 1;
         }
 
-        return new Number(res, b, true);
+        return new Number(removeLeadingZeros(res), b, true);
     }
 
 
@@ -177,7 +177,7 @@ public class Number implements Comparable<Number> {
             }
         }
 
-        return new Number(res, this.base, true);
+        return new Number(removeLeadingZeros(res), b, true);
     }
 
     /**
@@ -212,6 +212,8 @@ public class Number implements Comparable<Number> {
             result = result.add(new Number(addWith, b, true));
         }
 
+        result = new Number(removeLeadingZeros(result.words), b, true);
+
         // check if the sign must be changed. pos XOR neg -> true
         return (this.isPositive() ^ num.isPositive()) ? result.negate() : result;
     }
@@ -224,61 +226,47 @@ public class Number implements Comparable<Number> {
     public Number karatsuba(Number num) {
         validateBase(this, num);
 
-//        if (!this.isPositive()) {
-//            this.isPositive = true;
-//        }
-//
-//        if (!num.isPositive()) {
-//            num = num.negate();
-//        }
-//
-//        // base case
-//        if (this.getLength() == 1 && num.getLength() == 1) {
-//            return this.multiply(num);
-//        }
-//
-//        ResizeResult resizedResult = new ResizeResult(this, num, true);
-//        int base = this.getBase();
-//        int[] num1 = resizedResult.getResizedNum1();
-//        int[] num2 = resizedResult.getResizedNum2();
-//        int size = num1.length;
-//
-//        System.out.println(Arrays.toString(num1));
-//        System.out.println(Arrays.toString(num2));
-//
-//        // the most significant part of the first number
-//        Number a = new Number(Arrays.copyOfRange(num1, size / 2, size), base, true);
-//        // the least significant part of the first number
-//        Number b = new Number(Arrays.copyOfRange(num1, 0, size / 2), base, true);
-//        // the most significant part of the second number
-//        Number c = new Number(Arrays.copyOfRange(num2, size / 2, size), base, true);
-//        // the least significant part of the second number
-//        Number d = new Number(Arrays.copyOfRange(num2, 0, size / 2), base, true);
-//
-//        System.out.println("a = " + a);
-//        System.out.println("b = " + b);
-//        System.out.println("c = " + c);
-//        System.out.println("d = " + d);
-//        System.out.println();
-//
-//        // do (a * c) and (b * d)
-//        Number ac = a.karatsuba(c);
-//        Number db = d.karatsuba(b);
-//
-//        // do (a + b) * (c + d)
-//        Number abcd = a.add(b).karatsuba(d.add(c));
-//
-//        // do (a + d) * (b + c) - a * c - b * d
-//        Number z = abcd.subtract(ac).subtract(db);
-//
-////        return ac.add(abcd.subtract(ac).subtract(bd).shiftLeft(N)).add(bd.shiftLeft(2*N));
-//
-//        Number x = new Number(z.rebaseRight(size, size), base, true);
-//        Number y = new Number(db.rebaseRight(size, size * 2), base, true);
-//
-//        return ac.add(x.add(y));
+        boolean isResultNegative = this.isPositive() ^ num.isPositive();
 
-        return null;
+        // change the sings in order to avoid having problems
+        // when delegating to multiply/add. we still store the final sign
+        // in isResultNegative.
+        if (!this.isPositive()) { this.isPositive = true; }
+        if (!num.isPositive()) { num = num.negate(); }
+
+        // base case, each number is a single digit -> use primary school multiplication method
+        if (this.getLength() == 1 && num.getLength() == 1) { return num.multiply(this); }
+
+        int base = num.getBase();
+        int max = this.getLength() > num.getLength() ? this.getLength() : num.getLength();
+        int n = max % 2 == 1 ? max + 1 : max;
+        int[] num1 = this.rebaseRight(n, 0);
+        int[] num2 = num.rebaseRight(n, 0);
+
+        // the most significant part of the first number
+        Number a = new Number(Arrays.copyOfRange(num1, n / 2, n), base, true);
+        // the least significant part of the first number
+        Number b = new Number(Arrays.copyOfRange(num1, 0, n / 2), base, true);
+        // the most significant part of the second number
+        Number c = new Number(Arrays.copyOfRange(num2, n / 2, n), base, true);
+        // the least significant part of the second number
+        Number d = new Number(Arrays.copyOfRange(num2, 0, n / 2), base, true);
+
+        // do (a * c) and (b * d)
+        Number ac = a.karatsuba(c);
+        Number bd = b.karatsuba(d);
+
+        // do (a + b) * (c + d)
+        Number abcd = a.add(b).karatsuba(c.add(d));
+
+        // do (a + b) * (c + d) - a * c - b * d
+        Number e = abcd.subtract(ac).subtract(bd);
+
+        // (a * c) *b^n + e^(n/2) + (b * d)
+        Number result = new Number(ac.rebaseLeft(ac.getLength(), n), base, true)
+                .add(new Number(e.rebaseLeft(e.getLength(), n / 2), base, true)).add(bd);
+
+        return isResultNegative ? result.negate() : result;
     }
 
 
@@ -325,11 +313,6 @@ public class Number implements Comparable<Number> {
      * @return A new array of length {@code size} shifted by {@code shift} cells to the left.
      */
     public int[] rebaseLeft(int size, int shift) {
-        if (size < this.words.length) {
-            throw new IllegalArgumentException("Cannot perform rebase, since size(" +
-                    size + ") is smaller than the size of the current number(" + this.words.length + ")");
-        }
-
         int[] newWords = new int[size + shift];
         for (int i = 0; i < this.words.length; i++) {
             newWords[ i + shift ] = this.words[ i ];
@@ -348,10 +331,6 @@ public class Number implements Comparable<Number> {
      * @return A new array of length {@code size} shifted by {@code shift} cells to the left.
      */
     public int[] rebaseRight(int size, int shift) {
-        if (size < this.words.length) {
-            throw new IllegalArgumentException("Cannot perform rebase, since size(" +
-                    size + ") is smaller than the size of the current number(" + this.words.length + ")");
-        }
 
         int[] newWords = new int[size + shift];
         for (int i = 0; i < this.words.length; i++) {
@@ -409,13 +388,29 @@ public class Number implements Comparable<Number> {
             throw new RuntimeException("Invalid character = " + ch);
         }
 
-        return ws;
+        return removeLeadingZeros(ws);
     }
 
     private void validateBase(Number a, Number b) {
         if (a.getBase() != b.getBase()) {
             throw new IllegalArgumentException("Number have different bases");
         }
+    }
+
+    private int[] removeLeadingZeros(int[] ws) {
+        int i = ws.length - 1;
+        while(i >= 0 && ws[ i ] == 0) { i--; }
+
+        if (i == -1) {
+            return new int[] { 0 };
+        }
+
+        int[] result = new int[ i + 1 ];
+        for (int j = 0; j < result.length ; j++) {
+            result[ j ] = ws[ j ];
+        }
+
+        return result;
     }
 
     @Override
