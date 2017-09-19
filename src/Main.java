@@ -40,9 +40,7 @@ public class Main {
                 }
 
                 if (ex.getResult().isPresent()) {
-                    System.out.println("answer = " + ex.getResult().get());
-                    System.out.println("result = " + res);
-                    System.out.println();
+                    System.out.println(ex.getResult().get().toString().equals(res.toString()));
                 }
             }
         } catch (Exception e) {

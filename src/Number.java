@@ -208,7 +208,7 @@ public class Number implements Comparable<Number> {
         // then simply sum them up by shifting the next number by i
         Number result = new Number(intermediate[ 0 ], b, true);
         for (int i = 1; i < intermediate.length; i++) {
-            int[] addWith = new Number(intermediate[ i ], b, true).rebaseLeft(result.getLength() + 1, i);
+            int[] addWith = new Number(intermediate[ i ], b, true).rebaseLeft(intermediate[ i ].length, i);
             result = result.add(new Number(addWith, b, true));
         }
 
@@ -331,7 +331,6 @@ public class Number implements Comparable<Number> {
      * @return A new array of length {@code size} shifted by {@code shift} cells to the left.
      */
     public int[] rebaseRight(int size, int shift) {
-
         int[] newWords = new int[size + shift];
         for (int i = 0; i < this.words.length; i++) {
             newWords[ i ] = this.words[ i ];
