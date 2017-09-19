@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -101,11 +102,10 @@ public class Number implements Comparable<Number> {
         }
 
         // continue with a simple addition when two number are positive
-
-        ResizeResult resizedResult = new ResizeResult(this, num, false);
-        int[] num1 = resizedResult.getResizedNum1();
-        int[] num2 = resizedResult.getResizedNum2();
-        int[] res = resizedResult.getResizedResult();
+        int n = this.getLength() > num.getLength() ? this.getLength() : num.getLength();
+        int[] num1 = this.rebaseRight(n, 0);
+        int[] num2 = num.rebaseRight(n, 0);
+        int[] res = new int[ n + 1 ];
         int b = this.getBase();
         int c = 0; // carry
 
@@ -160,10 +160,10 @@ public class Number implements Comparable<Number> {
 
         // continue with a simple subtraction when two number are positive
 
-        ResizeResult resizedResult = new ResizeResult(this, num, false);
-        int[] num1 = resizedResult.getResizedNum1();
-        int[] num2 = resizedResult.getResizedNum2();
-        int[] res = resizedResult.getResizedResult();
+        int n = this.getLength() > num.getLength() ? this.getLength() : num.getLength();
+        int[] num1 = this.rebaseRight(n, 0);
+        int[] num2 = num.rebaseRight(n, 0);
+        int[] res = new int[ n ];
         int b = this.getBase();
         int c = 0; // carry
 
@@ -188,10 +188,10 @@ public class Number implements Comparable<Number> {
     public Number multiply(Number num) {
         validateBase(this, num);
 
-        ResizeResult resizedResult = new ResizeResult(this, num, true);
-        int[] num1 = resizedResult.getResizedNum1();
-        int[] num2 = resizedResult.getResizedNum2();
-        int[][] intermediate = new int[ num1.length ][ num1.length  + 1 ];
+        int n = this.getLength() > num.getLength() ? this.getLength() : num.getLength();
+        int[] num1 = this.rebaseLeft(n, 0);
+        int[] num2 = num.rebaseLeft(n, 0);
+        int[][] intermediate = new int[ n ][ n  + 1 ];
         int b = num.getBase();
 
         // first generate intermediate number after multiplication
@@ -223,6 +223,61 @@ public class Number implements Comparable<Number> {
      */
     public Number karatsuba(Number num) {
         validateBase(this, num);
+
+//        if (!this.isPositive()) {
+//            this.isPositive = true;
+//        }
+//
+//        if (!num.isPositive()) {
+//            num = num.negate();
+//        }
+//
+//        // base case
+//        if (this.getLength() == 1 && num.getLength() == 1) {
+//            return this.multiply(num);
+//        }
+//
+//        ResizeResult resizedResult = new ResizeResult(this, num, true);
+//        int base = this.getBase();
+//        int[] num1 = resizedResult.getResizedNum1();
+//        int[] num2 = resizedResult.getResizedNum2();
+//        int size = num1.length;
+//
+//        System.out.println(Arrays.toString(num1));
+//        System.out.println(Arrays.toString(num2));
+//
+//        // the most significant part of the first number
+//        Number a = new Number(Arrays.copyOfRange(num1, size / 2, size), base, true);
+//        // the least significant part of the first number
+//        Number b = new Number(Arrays.copyOfRange(num1, 0, size / 2), base, true);
+//        // the most significant part of the second number
+//        Number c = new Number(Arrays.copyOfRange(num2, size / 2, size), base, true);
+//        // the least significant part of the second number
+//        Number d = new Number(Arrays.copyOfRange(num2, 0, size / 2), base, true);
+//
+//        System.out.println("a = " + a);
+//        System.out.println("b = " + b);
+//        System.out.println("c = " + c);
+//        System.out.println("d = " + d);
+//        System.out.println();
+//
+//        // do (a * c) and (b * d)
+//        Number ac = a.karatsuba(c);
+//        Number db = d.karatsuba(b);
+//
+//        // do (a + b) * (c + d)
+//        Number abcd = a.add(b).karatsuba(d.add(c));
+//
+//        // do (a + d) * (b + c) - a * c - b * d
+//        Number z = abcd.subtract(ac).subtract(db);
+//
+////        return ac.add(abcd.subtract(ac).subtract(bd).shiftLeft(N)).add(bd.shiftLeft(2*N));
+//
+//        Number x = new Number(z.rebaseRight(size, size), base, true);
+//        Number y = new Number(db.rebaseRight(size, size * 2), base, true);
+//
+//        return ac.add(x.add(y));
+
         return null;
     }
 
