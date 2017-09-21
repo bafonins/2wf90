@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -9,12 +8,12 @@ public class Main {
     private static InputReader reader;
 
     public static void main(String[] args) {
-        if (args.length < 1) {
+        if (args.length < 2) {
             throw new IllegalArgumentException("no file specified");
         }
 
         try {
-            Main.reader = new InputReader(args[0]);
+            Main.reader = new InputReader(args[0], args[1]);
             Iterator<ExecutionCase> it = Main.reader.iterator();
 
             while (it.hasNext()) {
@@ -39,9 +38,8 @@ public class Main {
                         throw new IllegalArgumentException("Unknown operation");
                 }
 
-                if (ex.getResult().isPresent()) {
-                    System.out.println(ex.getResult().get().toString().equals(res.toString()));
-                }
+                ex.setCalculatedResult(res.toString());
+                reader.writeResult(ex);
             }
         } catch (Exception e) {
             System.out.println(e);

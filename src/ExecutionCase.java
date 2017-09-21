@@ -36,14 +36,15 @@ public class ExecutionCase {
     private String fst;
     private String snd;
     private Operation operation;
-    private String result;
+    private String correctResult;
+    private String calculatedResult;
 
     public ExecutionCase(
             int radix,
             String firstNumber,
             String secondNumber,
             Operation operation,
-            String result) {
+            String correctResult) {
         Objects.requireNonNull(firstNumber);
         Objects.requireNonNull(secondNumber);
         Objects.requireNonNull(operation);
@@ -56,7 +57,7 @@ public class ExecutionCase {
         this.fst = firstNumber;
         this.snd = secondNumber;
         this.operation = operation;
-        this.result = result;
+        this.correctResult = correctResult;
     }
 
     public int getRadix() {
@@ -75,7 +76,15 @@ public class ExecutionCase {
         return operation;
     }
 
-    public Optional<String> getResult() {
-        return Optional.ofNullable(this.result);
+    public Optional<String> getCorrectResult() {
+        return Optional.ofNullable(this.correctResult);
+    }
+
+    public Optional<String> getCalculatedResult() {
+        return Optional.ofNullable(this.calculatedResult);
+    }
+
+    public void setCalculatedResult(String calculatedResult) {
+        this.calculatedResult = calculatedResult;
     }
 }
