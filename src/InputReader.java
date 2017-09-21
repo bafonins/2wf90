@@ -2,6 +2,7 @@
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.Optional;
@@ -10,15 +11,18 @@ import java.util.Scanner;
 public class InputReader implements Closeable, Iterable<ExecutionCase> {
 
     private Scanner sc;
+    private PrintWriter wr;
 
 
-    public InputReader(String path) {
-        Objects.requireNonNull(path);
-        if (path.isEmpty()) {
+    public InputReader(String inputPath, String outputPath) {
+        Objects.requireNonNull(inputPath);
+        Objects.requireNonNull(outputPath);
+
+        if (inputPath.isEmpty()) {
             throw new IllegalArgumentException("The file path cannot be empty");
         }
 
-        this.init(new File(path));
+        this.init(new File(inputPath), new File(outputPath));
     }
 
     @Override
@@ -26,13 +30,24 @@ public class InputReader implements Closeable, Iterable<ExecutionCase> {
         if (this.sc != null) {
             this.sc.close();
         }
+
+        if (this.wr != null) {
+            this.wr.close();
+        }
     }
 
-    private void init(File file) {
+    private void init(File out, File in) {
         try {
-            this.sc = new Scanner(file);
+            this.sc = new Scanner(out);
         } catch (FileNotFoundException e) {
-            System.err.print("Failed to init scanner with file = " + file.getAbsolutePath());
+            System.err.print("Failed to init scanner with file = " + out.getAbsolutePath());
+            throw new RuntimeException();
+        }
+
+        try {
+            this.wr = new PrintWriter(in);
+        } catch (FileNotFoundException e) {
+            System.err.print("Failed to init writer with file = " + in.getAbsolutePath());
             throw new RuntimeException();
         }
     }
