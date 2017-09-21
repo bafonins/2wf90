@@ -27,13 +27,13 @@ public class InputReader implements Closeable, Iterable<ExecutionCase> {
 
     public void writeResult(ExecutionCase exCase) {
         Objects.requireNonNull(exCase);
-        this.wr.println("[operation]\t\t\t" + exCase.getOperation());
-        this.wr.println("[x]\t\t\t\t\t" + exCase.getFst());
-        this.wr.println("[y]\t\t\t\t\t" + exCase.getSnd());
+        this.wr.println("[operation]            " + exCase.getOperation());
+        this.wr.println("[x]                    " + exCase.getFst());
+        this.wr.println("[y]                    " + exCase.getSnd());
         exCase.getCorrectResult().ifPresent(knownCorrectResult -> {
-            this.wr.println("[known result]\t\t" + knownCorrectResult);
+            this.wr.println("[known result]         " + knownCorrectResult);
         });
-        this.wr.println("[calculated result] " + exCase.getCalculatedResult()
+        this.wr.println("[calculated result]    " + exCase.getCalculatedResult()
                 .orElseThrow(() -> new RuntimeException("the calculated result is not set")));
         this.wr.println();
     }
