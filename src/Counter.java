@@ -6,12 +6,20 @@ public class Counter {
 
     private int multiplications;
     private int additions;
+    private int subtractions;
 
     /**
      * Increments the addition counter by 1.
      */
     public void addition() {
         this.additions++;
+    }
+
+    /**
+     * Increments the subtraction counter by 1.
+     */
+    public void subtraction() {
+        this.subtractions++;
     }
 
     /**
@@ -35,5 +43,13 @@ public class Counter {
      */
     public int getMultiplicationCount() {
         return this.multiplications;
+    }
+
+    /**
+     * Gets the number of subtractions happened.
+     * @return The number of subtractions.
+     */
+    public int getSubtractionCount() {
+        return this.subtractions;
     }
 }

@@ -21,25 +21,26 @@ public class Main {
                 Number num1 = new Number(ex.getFst(), ex.getRadix());
                 Number num2 = new Number(ex.getSnd(), ex.getRadix());
                 Number res = null;
+                Counter counter = new Counter();
                 switch (ex.getOperation()) {
                     case ADD:
-                        res = num1.add(num2);
+                        res = num1.add(num2, counter);
                         break;
                     case SUBTRACT:
-                        res = num1.subtract(num2);
+                        res = num1.subtract(num2, counter);
                         break;
                     case MULTIPLY:
-                        res = num1.multiply(num2);
+                        res = num1.multiply(num2, counter);
                         break;
                     case KARATSUBA:
-                        res = num1.karatsuba(num2);
+                        res = num1.karatsuba(num2, counter);
                         break;
                     default:
                         throw new IllegalArgumentException("Unknown operation");
                 }
 
                 ex.setCalculatedResult(res.toString());
-                reader.writeResult(ex);
+                reader.writeResult(ex, counter);
             }
         } catch (Exception e) {
             System.out.println(e);

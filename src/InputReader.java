@@ -25,8 +25,10 @@ public class InputReader implements Closeable, Iterable<ExecutionCase> {
         this.init(new File(inputPath), new File(outputPath));
     }
 
-    public void writeResult(ExecutionCase exCase) {
+    public void writeResult(ExecutionCase exCase, Counter counter) {
         Objects.requireNonNull(exCase);
+        Objects.requireNonNull(counter);
+        
         this.wr.println("[operation]            " + exCase.getOperation());
         this.wr.println("[x]                    " + exCase.getFst());
         this.wr.println("[y]                    " + exCase.getSnd());
@@ -35,6 +37,9 @@ public class InputReader implements Closeable, Iterable<ExecutionCase> {
         });
         this.wr.println("[calculated result]    " + exCase.getCalculatedResult()
                 .orElseThrow(() -> new RuntimeException("the calculated result is not set")));
+        this.wr.println("[nr. additions]        " + counter.getAdditionCount());
+        this.wr.println("[nr. subtractions]     " + counter.getSubtractionCount());
+        this.wr.println("[nr. multiplications]  " + counter.getMultiplicationCount());
         this.wr.println();
     }
 

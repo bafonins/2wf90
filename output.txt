@@ -3,226 +3,340 @@
 [y]                    1001011010110100010111100101110011001010001010001001010100111001010011000101001110000101000001010111
 [known result]         10110001100010000001011010001010111001011100000000110100100001111001111111011011010011001001101010001
 [calculated result]    10110001100010000001011010001010111001011100000000110100100001111001111111011011010011001001101010001
+[nr. additions]        100
+[nr. subtractions]     53
+[nr. multiplications]  0
 
 [operation]            ADD
 [x]                    1021002222220100111012120000201102021221
 [y]                    1012200010211212111211101000010010220000
 [known result]         2110210010202020000000221000211120011221
 [calculated result]    2110210010202020000000221000211120011221
+[nr. additions]        40
+[nr. subtractions]     19
+[nr. multiplications]  0
 
 [operation]            ADD
 [x]                    df9e76d113895821c567
 [y]                    6a20b188675ab39e17a2
 [known result]         149bf28597ae40bbfdd09
 [calculated result]    149bf28597ae40bbfdd09
+[nr. additions]        20
+[nr. subtractions]     7
+[nr. multiplications]  0
 
 [operation]            ADD
 [x]                    -9999
 [y]                    9999
 [known result]         0
 [calculated result]    0
+[nr. additions]        0
+[nr. subtractions]     4
+[nr. multiplications]  0
 
 [operation]            ADD
 [x]                    0
 [y]                    0
 [known result]         0
 [calculated result]    0
+[nr. additions]        1
+[nr. subtractions]     0
+[nr. multiplications]  0
 
 [operation]            ADD
 [x]                    0000000
 [y]                    0000000
 [known result]         0
 [calculated result]    0
+[nr. additions]        1
+[nr. subtractions]     0
+[nr. multiplications]  0
 
 [operation]            ADD
 [x]                    9999
 [y]                    9999
 [known result]         19998
 [calculated result]    19998
+[nr. additions]        4
+[nr. subtractions]     4
+[nr. multiplications]  0
 
 [operation]            ADD
 [x]                    9999
 [y]                    -9999
 [known result]         0
 [calculated result]    0
+[nr. additions]        0
+[nr. subtractions]     4
+[nr. multiplications]  0
 
 [operation]            ADD
 [x]                    df9e76d113895821c567
 [y]                    6a20b188675ab39e17a2
 [known result]         149bf28597ae40bbfdd09
 [calculated result]    149bf28597ae40bbfdd09
+[nr. additions]        20
+[nr. subtractions]     7
+[nr. multiplications]  0
 
 [operation]            SUBTRACT
 [x]                    1111001001111000100100000101010011011111111101100110100101110101101100100110001010011101011010001011
 [y]                    1001011010100110111010101000101110010010111011100100111101010001011000110110100111011000110001011111
 [known result]         101101111010001101001011100100101001101000010000001101000100100010011101111100011000100101000101100
 [calculated result]    101101111010001101001011100100101001101000010000001101000100100010011101111100011000100101000101100
+[nr. additions]        44
+[nr. subtractions]     100
+[nr. multiplications]  0
 
 [operation]            SUBTRACT
 [x]                    2021112002201010101201001221200211210001
 [y]                    1211222222202101122110112222212210012122
 [known result]         102112002221201202020111221211001120102
 [calculated result]    102112002221201202020111221211001120102
+[nr. additions]        31
+[nr. subtractions]     40
+[nr. multiplications]  0
 
 [operation]            SUBTRACT
 [x]                    123
 [y]                    234
 [known result]         -111
 [calculated result]    -111
+[nr. additions]        0
+[nr. subtractions]     3
+[nr. multiplications]  0
 
 [operation]            SUBTRACT
 [x]                    -100
 [y]                    123
 [known result]         -223
 [calculated result]    -223
+[nr. additions]        3
+[nr. subtractions]     0
+[nr. multiplications]  0
 
 [operation]            SUBTRACT
 [x]                    100
 [y]                    -123
 [known result]         223
 [calculated result]    223
+[nr. additions]        3
+[nr. subtractions]     0
+[nr. multiplications]  0
 
 [operation]            SUBTRACT
 [x]                    -100
 [y]                    -123
 [known result]         23
 [calculated result]    23
+[nr. additions]        0
+[nr. subtractions]     3
+[nr. multiplications]  0
 
 [operation]            SUBTRACT
 [x]                    -123
 [y]                    -100
 [known result]         -23
 [calculated result]    -23
+[nr. additions]        0
+[nr. subtractions]     3
+[nr. multiplications]  0
 
 [operation]            SUBTRACT
 [x]                    36d2b5154ab14bfabbf2
 [y]                    f9d1495cfafe396ae4b1
 [known result]         -c2fe9447b04ced7028bf
 [calculated result]    -c2fe9447b04ced7028bf
+[nr. additions]        9
+[nr. subtractions]     20
+[nr. multiplications]  0
 
 [operation]            MULTIPLY
 [x]                    1111001110011011011101001100010101111000011010100100001101011101111101101110010001111010001010110011
 [y]                    1110110000001110100000101100010100101010110001101100011011101000101001001001000100001111010100100110
 [known result]         11100000101000010001111010010110111111100111000001010111101100100100001100000010011011111001001001111100000010010100100011101011001011000101101001100010110001000001001000100011100001110111010110010010
 [calculated result]    11100000101000010001111010010110111111100111000001010111101100100100001100000010011011111001001001111100000010010100100011101011001011000101101001100010110001000001001000100011100001110111010110010010
+[nr. additions]        24949
+[nr. subtractions]     12373
+[nr. multiplications]  20000
 
 [operation]            MULTIPLY
 [x]                    2010220211120222202210012012101022110011
 [y]                    -2102021102022210001211210202210112011002
 [known result]         -12012000201010022100110110121211221122212001010101210112211010012201102111111022
 [calculated result]    -12012000201010022100110110121211221122212001010101210112211010012201102111111022
+[nr. additions]        3979
+[nr. subtractions]     2158
+[nr. multiplications]  3200
 
 [operation]            MULTIPLY
 [x]                    -eed50d6aa53e51691add
 [y]                    -f9027b863f654daae6a8
 [known result]         e84f8af471ab1bb45d20f1a95313171b2ade2f08
 [calculated result]    e84f8af471ab1bb45d20f1a95313171b2ade2f08
+[nr. additions]        989
+[nr. subtractions]     574
+[nr. multiplications]  800
 
 [operation]            MULTIPLY
 [x]                    12422311
 [y]                    13
 [known result]         223101043
 [calculated result]    223101043
+[nr. additions]        155
+[nr. subtractions]     69
+[nr. multiplications]  128
 
 [operation]            MULTIPLY
 [x]                    -12422311
 [y]                    13
 [known result]         -223101043
 [calculated result]    -223101043
+[nr. additions]        155
+[nr. subtractions]     69
+[nr. multiplications]  128
 
 [operation]            MULTIPLY
 [x]                    12422311
 [y]                    -13
 [known result]         -223101043
 [calculated result]    -223101043
+[nr. additions]        155
+[nr. subtractions]     69
+[nr. multiplications]  128
 
 [operation]            MULTIPLY
 [x]                    0
 [y]                    1234567890
 [known result]         0
 [calculated result]    0
+[nr. additions]        244
+[nr. subtractions]     100
+[nr. multiplications]  200
 
 [operation]            MULTIPLY
 [x]                    0
 [y]                    0
 [known result]         0
 [calculated result]    0
+[nr. additions]        1
+[nr. subtractions]     1
+[nr. multiplications]  2
 
 [operation]            MULTIPLY
 [x]                    123456789
 [y]                    0
 [known result]         0
 [calculated result]    0
+[nr. additions]        197
+[nr. subtractions]     81
+[nr. multiplications]  162
 
 [operation]            MULTIPLY
 [x]                    -12422311
 [y]                    -13
 [known result]         223101043
 [calculated result]    223101043
+[nr. additions]        155
+[nr. subtractions]     69
+[nr. multiplications]  128
 
 [operation]            KARATSUBA
 [x]                    12422311
 [y]                    13
 [known result]         223101043
 [calculated result]    223101043
+[nr. additions]        240
+[nr. subtractions]     139
+[nr. multiplications]  86
 
 [operation]            KARATSUBA
 [x]                    -12422311
 [y]                    13
 [known result]         -223101043
 [calculated result]    -223101043
+[nr. additions]        240
+[nr. subtractions]     139
+[nr. multiplications]  86
 
 [operation]            KARATSUBA
 [x]                    12422311
 [y]                    -13
 [known result]         -223101043
 [calculated result]    -223101043
+[nr. additions]        240
+[nr. subtractions]     139
+[nr. multiplications]  86
 
 [operation]            KARATSUBA
 [x]                    -12422311
 [y]                    -13
 [known result]         223101043
 [calculated result]    223101043
+[nr. additions]        240
+[nr. subtractions]     139
+[nr. multiplications]  86
 
 [operation]            KARATSUBA
 [x]                    1111001110011011011101001100010101111000011010100100001101011101111101101110010001111010001010110011
 [y]                    1110110000001110100000101100010100101010110001101100011011101000101001001001000100001111010100100110
 [known result]         11100000101000010001111010010110111111100111000001010111101100100100001100000010011011111001001001111100000010010100100011101011001011000101101001100010110001000001001000100011100001110111010110010010
 [calculated result]    11100000101000010001111010010110111111100111000001010111101100100100001100000010011011111001001001111100000010010100100011101011001011000101101001100010110001000001001000100011100001110111010110010010
+[nr. additions]        26722
+[nr. subtractions]     13466
+[nr. multiplications]  7490
 
 [operation]            KARATSUBA
 [x]                    2010220211120222202210012012101022110011
 [y]                    -2102021102022210001211210202210112011002
 [known result]         -12012000201010022100110110121211221122212001010101210112211010012201102111111022
 [calculated result]    -12012000201010022100110110121211221122212001010101210112211010012201102111111022
+[nr. additions]        7097
+[nr. subtractions]     3767
+[nr. multiplications]  2014
 
 [operation]            KARATSUBA
 [x]                    2010220211120222202210012012101022110011
 [y]                    -2102021102022210001211210202210112011002
 [known result]         -12012000201010022100110110121211221122212001010101210112211010012201102111111022
 [calculated result]    -12012000201010022100110110121211221122212001010101210112211010012201102111111022
+[nr. additions]        7097
+[nr. subtractions]     3767
+[nr. multiplications]  2014
 
 [operation]            KARATSUBA
 [x]                    -eed50d6aa53e51691add
 [y]                    -f9027b863f654daae6a8
 [known result]         e84f8af471ab1bb45d20f1a95313171b2ade2f08
 [calculated result]    e84f8af471ab1bb45d20f1a95313171b2ade2f08
+[nr. additions]        2498
+[nr. subtractions]     1485
+[nr. multiplications]  670
 
 [operation]            KARATSUBA
 [x]                    0
 [y]                    123456789
 [known result]         0
 [calculated result]    0
+[nr. additions]        417
+[nr. subtractions]     188
+[nr. multiplications]  174
 
 [operation]            KARATSUBA
 [x]                    123456789
 [y]                    0
 [known result]         0
 [calculated result]    0
+[nr. additions]        417
+[nr. subtractions]     188
+[nr. multiplications]  174
 
 [operation]            KARATSUBA
 [x]                    0
 [y]                    0
 [known result]         0
 [calculated result]    0
+[nr. additions]        1
+[nr. subtractions]     1
+[nr. multiplications]  2
 

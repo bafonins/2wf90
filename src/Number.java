@@ -77,19 +77,20 @@ public class Number implements Comparable<Number> {
     /**
      * Adds two {@code Number}.
      * @param num The number to add with {@code this}.
+     * @param counter The {@code Counter} object to count the number of primitive operations.
      * @return A new {@code Number}, which is the result of addition.
      */
-    public Number add(Number num) {
+    public Number add(Number num, Counter counter) {
         validateBase(this, num);
 
         // delegate to subtraction
         if (this.isPositive() && !num.isPositive()) {
-            return this.subtract(num.negate());
+            return this.subtract(num.negate(), counter);
         }
 
         //delegate to subtraction
         if (!this.isPositive() && num.isPositive()) {
-            return num.subtract(this.negate());
+            return num.subtract(this.negate(), counter);
         }
 
         // add and change the sign
@@ -98,7 +99,7 @@ public class Number implements Comparable<Number> {
             Number pos1 = this.negate();
             Number pos2 = num.negate();
 
-            return pos1.add(pos2).negate();
+            return pos1.add(pos2, counter).negate();
         }
 
         // continue with a simple addition when two number are positive
@@ -111,8 +112,10 @@ public class Number implements Comparable<Number> {
 
         for (int i = 0; i < res.length - 1; i++) {
             res[ i ] = num1[ i ] + num2[ i ] + c;
+            counter.addition();
             if (res[ i ] >= b) {
                 res[ i ] -= b;
+                counter.subtraction();
                 c = 1;
             } else {
                 c = 0;
@@ -130,32 +133,33 @@ public class Number implements Comparable<Number> {
     /**
      * Subtracts from {@code this}.
      * @param num The number to subtract from {@code this}.
+     * @param counter The {@code Counter} object to count the number of primitive operations.
      * @return A new {@code Number}, which is the result of subtraction.
      */
-    public Number subtract(Number num) {
+    public Number subtract(Number num, Counter counter) {
         validateBase(this, num);
 
         // simply add, num1 - (-num2) = num1 + num2
         if (this.isPositive() && !num.isPositive()) {
-            return num.negate().add(this);
+            return num.negate().add(this, counter);
         }
 
         // make the first number positive, add with the second one and change
         // the final sign.
         if (!this.isPositive() && num.isPositive()) {
-            return this.negate().add(num).negate();
+            return this.negate().add(num, counter).negate();
         }
 
         // call subtract on the second number, since
         // -num1 - (-num2) = num2 - num1
         if (!this.isPositive() && !num.isPositive()) {
-            return num.negate().subtract(this.negate());
+            return num.negate().subtract(this.negate(), counter);
         }
 
         // we want the first number to be larger than the second one
         // if not, flip the operands
         if (this.compareTo(num) < 0) {
-            return num.subtract(this).negate();
+            return num.subtract(this, counter).negate();
         }
 
         // continue with a simple subtraction when two number are positive
@@ -169,8 +173,10 @@ public class Number implements Comparable<Number> {
 
         for (int i = 0; i < num1.length; i++) {
             res[ i ] = num1[ i ] - num2[ i ] - c;
+            counter.subtraction();
             if (res[ i ] < 0) {
                 res[ i ] += b;
+                counter.addition();
                 c = 1;
             } else {
                 c = 0;
@@ -183,9 +189,10 @@ public class Number implements Comparable<Number> {
     /**
      * Multiplies two {@code Number}.
      * @param num The number to multiply with {@code this}.
+     * @param counter The {@code Counter} object to count the number of primitive operations.
      * @return A new {@code Number}, which is the result of multiplication.
      */
-    public Number multiply(Number num) {
+    public Number multiply(Number num, Counter counter) {
         validateBase(this, num);
 
         int n = this.getLength() > num.getLength() ? this.getLength() : num.getLength();
@@ -199,8 +206,10 @@ public class Number implements Comparable<Number> {
             int c = 0;
             for (int j = 0; j < num2.length; j++) {
                 int t = num1[ i ] * num2[ j ] + c;
+                counter.multiplication(); counter.addition();
                 c = t / b;
                 intermediate[ i ][ j ] = t - c * b;
+                counter.multiplication(); counter.subtraction();
             }
             intermediate[ i ][ intermediate[ i ].length - 1 ] = c;
         }
@@ -209,7 +218,7 @@ public class Number implements Comparable<Number> {
         Number result = new Number(intermediate[ 0 ], b, true);
         for (int i = 1; i < intermediate.length; i++) {
             int[] addWith = new Number(intermediate[ i ], b, true).rebaseLeft(intermediate[ i ].length, i);
-            result = result.add(new Number(addWith, b, true));
+            result = result.add(new Number(addWith, b, true), counter);
         }
 
         result = new Number(removeLeadingZeros(result.words), b, true);
@@ -221,9 +230,10 @@ public class Number implements Comparable<Number> {
     /**
      * Multiplies two {@code Number} using the Karatsuba method.
      * @param num The number to multiply with {@code this}.
+     * @param counter The {@code Counter} object to count the number of primitive operations.
      * @return A new {@code Number}, which is the result of multiplication.
      */
-    public Number karatsuba(Number num) {
+    public Number karatsuba(Number num, Counter counter) {
         validateBase(this, num);
 
         boolean isResultNegative = this.isPositive() ^ num.isPositive();
@@ -235,7 +245,7 @@ public class Number implements Comparable<Number> {
         if (!num.isPositive()) { num = num.negate(); }
 
         // base case, each number is a single digit -> use primary school multiplication method
-        if (this.getLength() == 1 && num.getLength() == 1) { return num.multiply(this); }
+        if (this.getLength() == 1 && num.getLength() == 1) { return num.multiply(this, counter); }
 
         int base = num.getBase();
         int max = this.getLength() > num.getLength() ? this.getLength() : num.getLength();
@@ -253,18 +263,18 @@ public class Number implements Comparable<Number> {
         Number d = new Number(Arrays.copyOfRange(num2, 0, n / 2), base, true);
 
         // do (a * c) and (b * d)
-        Number ac = a.karatsuba(c);
-        Number bd = b.karatsuba(d);
+        Number ac = a.karatsuba(c, counter);
+        Number bd = b.karatsuba(d, counter);
 
         // do (a + b) * (c + d)
-        Number abcd = a.add(b).karatsuba(c.add(d));
+        Number abcd = a.add(b, counter).karatsuba(c.add(d, counter), counter);
 
         // do (a + b) * (c + d) - a * c - b * d
-        Number e = abcd.subtract(ac).subtract(bd);
+        Number e = abcd.subtract(ac, counter).subtract(bd, counter);
 
         // (a * c) *b^n + e^(n/2) + (b * d)
         Number result = new Number(ac.rebaseLeft(ac.getLength(), n), base, true)
-                .add(new Number(e.rebaseLeft(e.getLength(), n / 2), base, true)).add(bd);
+                .add(new Number(e.rebaseLeft(e.getLength(), n / 2), base, true), counter).add(bd, counter);
 
         return isResultNegative ? result.negate() : result;
     }
