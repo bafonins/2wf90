@@ -108,6 +108,10 @@ public class InputReader implements Closeable, Iterable<ExecutionCase> {
                 return Optional.empty();
             }
 
+            while(this.scan.hasNext("#")) {
+                this.scan.nextLine();
+            }
+
             String radixToken = this.scan.next();
             if (!radixToken.equalsIgnoreCase(RADIX_TOKEN)) {
                 throw new RuntimeException("expected '" + RADIX_TOKEN + "', but got = '" + radixToken + "'");
