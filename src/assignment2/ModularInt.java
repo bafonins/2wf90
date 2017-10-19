@@ -27,6 +27,15 @@ public class ModularInt {
         return this;
     }
 
+    public ModularInt subtract(ModularInt b) {
+        if (b != null) {
+            this.number = this.getPos() - b.getPos();
+            this.number = this.getPos();
+        }
+
+        return this;
+    }
+
     /**
      * Gets a positive result after taking modulo {@code m}.
      * @return number `mod` m s.t. it is {@code >= 0}
