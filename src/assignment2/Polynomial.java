@@ -50,6 +50,7 @@ public class Polynomial {
      * @return The sum of two polynomials.
      */
     public Polynomial sum(Polynomial b) {
+        System.out.println(Arrays.toString(b.terms));
         int n_max = Math.max(b.getDegree(), this.getDegree());
 
         this.extend(n_max + 1);
@@ -143,13 +144,12 @@ public class Polynomial {
      * @param length The new length (degree + 1) of the polynomial.
      */
     public void extend(int length) {
-        if (this.terms.length > length) { return; }
         if (this.terms.length == length) { return; }
 
         int previousLength = this.terms.length;
         this.terms = Arrays.copyOf(this.terms, length);
 
-        for (int i = previousLength - 1; i < length; i++) {
+        for (int i = previousLength; i < length; i++) {
             this.terms[i] = new ModularInt(0, this.m);
         }
     }
