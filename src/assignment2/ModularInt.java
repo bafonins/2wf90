@@ -53,4 +53,9 @@ public class ModularInt {
 
         return this;
     }
+
+    @Override
+    public String toString() {
+        return Integer.toString(this.number);
+    }
 }
