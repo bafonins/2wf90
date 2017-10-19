@@ -108,7 +108,7 @@ public class Polynomial {
      */
     public int getDegree() {
         int deg = this.terms.length - 1;
-        while(this.terms[deg].getPos() == 0) { deg--; }
+        while(deg > 0 && this.terms[deg].getPos() == 0) { deg--; }
 
         return deg;
     }
@@ -123,7 +123,7 @@ public class Polynomial {
             sb.append(this.terms[last].getPos()).append("X^").append(last);
         }
 
-        for (int i = this.terms.length - 2; i > 0; i--) {
+        for (int i = this.getDegree() - 1; i > 0; i--) {
             ModularInt coef = this.terms[i];
             if (coef.getPos() != 0) {
                 sb.append("+").append(coef.getPos()).append("X^").append(i);
