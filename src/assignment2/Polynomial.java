@@ -146,6 +146,11 @@ public class Polynomial {
         if (this.terms.length > length) { return; }
         if (this.terms.length == length) { return; }
 
+        int previousLength = this.terms.length;
         this.terms = Arrays.copyOf(this.terms, length);
+
+        for (int i = previousLength - 1; i < length; i++) {
+            this.terms[i] = new ModularInt(0, this.m);
+        }
     }
 }
