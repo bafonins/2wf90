@@ -1,5 +1,7 @@
 package assignment1;
 
+import assignment2.ModularInt;
+
 import java.util.Iterator;
 
 /**
