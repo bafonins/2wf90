@@ -47,4 +47,10 @@ public class ModularInt {
     public int getNeg() {
         return  - (m - this.getPos());
     }
+
+    public ModularInt set(int n) {
+        this.number = n;
+
+        return this;
+    }
 }

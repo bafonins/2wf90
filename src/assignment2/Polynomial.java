@@ -29,6 +29,22 @@ public class Polynomial {
         this.terms = terms;
     }
 
+    /**
+     * Multiplies each term with {@code s} with every coefficient being reduced `mod` m.
+     * @param s The multiple.
+     * @return The polynomial after multiplying each term with {@code s}.
+     */
+    public Polynomial scalarMultiple(int s) {
+        for (int i = 0; i < this.terms.length; i++) {
+            ModularInt val = this.terms[i];
+            if (val != null) {
+                this.terms[i] = val.set(val.getPos() * s);
+            }
+        }
+
+        return this;
+    }
+
 
     @Override
     public String toString() {
