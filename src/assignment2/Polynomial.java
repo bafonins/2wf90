@@ -108,7 +108,7 @@ public class Polynomial {
      */
     public int getDegree() {
         int deg = this.terms.length - 1;
-        while(this.terms[deg] == null) { deg--; }
+        while(this.terms[deg].getPos() == 0) { deg--; }
 
         return deg;
     }
@@ -118,8 +118,8 @@ public class Polynomial {
     public String toString() {
         StringBuilder sb = new StringBuilder("");
 
-        if (this.terms[this.terms.length - 1].getPos() != 0) {
-            int last = this.terms.length - 1;
+        if (this.terms[this.getDegree()].getPos() != 0) {
+            int last = this.getDegree();
             sb.append(this.terms[last].getPos()).append("X^").append(last);
         }
 
