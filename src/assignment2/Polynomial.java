@@ -90,12 +90,29 @@ public class Polynomial {
         return this;
     }
 
+    public Polynomial product(Polynomial b) {
+        int n_max = Math.max(b.getDegree(), this.getDegree());
+
+        this.extend(n_max + 1);
+        b.extend(n_max + 1);
+
+        for (int i = 0; i < n_max; i++) {
+            for (int j = 0; j < n_max; j++) {
+
+            }
+        }
+        return this;
+    }
+
     /**
      * Gets degree of the polynomial.
      * @return Degree of the polynomial.
      */
     public int getDegree() {
-        return this.terms.length - 1;
+        int deg = this.terms.length - 1;
+        while(this.terms[deg] == null) { deg--; }
+
+        return deg;
     }
 
 
