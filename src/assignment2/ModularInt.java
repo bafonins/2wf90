@@ -19,19 +19,19 @@ public class ModularInt {
     }
 
     public ModularInt add(ModularInt b) {
-        if (b != null) {
-            this.number = this.getPos() + b.getPos();
-            this.number = this.getPos();
-        }
+        this.number = (this.getPos() + b.getPos()) % this.m;
 
         return this;
     }
 
     public ModularInt subtract(ModularInt b) {
-        if (b != null) {
-            this.number = this.getPos() - b.getPos();
-            this.number = this.getPos();
-        }
+        this.number = (this.getPos() - b.getPos()) % this.m;
+
+        return this;
+    }
+
+    public ModularInt multiply(ModularInt b) {
+        this.number = (this.getPos() * b.getPos()) % this.m;
 
         return this;
     }

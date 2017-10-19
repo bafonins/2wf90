@@ -38,16 +38,14 @@ public class Polynomial {
     public Polynomial scalarMultiple(int s) {
         for (int i = 0; i < this.terms.length; i++) {
             ModularInt val = this.terms[i];
-            if (val != null) {
-                this.terms[i] = val.set(val.getPos() * s);
-            }
+            this.terms[i] = val.set(val.getPos() * s);
         }
 
         return this;
     }
 
     /**
-     * Adds two ({@code this} and {@code b}) polynomials and reduces them `mod` m.
+     * Adds two ({@code this} and {@code b}) polynomials and reduces the result `mod` m.
      * @param b The second polynomial to sum with.
      * @return The sum of two polynomials.
      */
@@ -58,18 +56,14 @@ public class Polynomial {
         b.extend(n_max + 1);
 
         for (int i = 0; i < n_max; i++) {
-            if (this.terms[i] == null) {
-                this.terms[i] = b.terms[i];
-            } else {
-                this.terms[i].add(b.terms[i]);
-            }
+            this.terms[i].add(b.terms[i]);
         }
 
         return this;
     }
 
     /**
-     * Subtracts {@code b} from {@code this} and reduces them `mod` m.
+     * Subtracts {@code b} from {@code this} and reduces the result `mod` m.
      * @param b The second polynomial to subtract from {@code this}.
      * @return The difference of two polynomials.
      */
@@ -80,27 +74,31 @@ public class Polynomial {
         b.extend(n_max + 1);
 
         for (int i = 0; i < n_max; i++) {
-            if (this.terms[i] == null) {
-                this.terms[i] = b.terms[i];
-            } else {
-                this.terms[i].subtract(b.terms[i]);
-            }
+            this.terms[i].subtract(b.terms[i]);
         }
 
         return this;
     }
 
+    /**
+     * Multiplies {@code b} an {@code this} and reduces the result `mod` m.
+     * @param b The second polynomial to subtract from {@code this}.
+     * @return The difference of two polynomials.
+     */
     public Polynomial product(Polynomial b) {
         int n_max = Math.max(b.getDegree(), this.getDegree());
 
         this.extend(n_max + 1);
         b.extend(n_max + 1);
+        ModularInt[] result = new ModularInt[(n_max + 1) * 2];
+        for (int i = 0; i < result.length; i++) { result[i] = new ModularInt(0, this.m); }
 
         for (int i = 0; i < n_max; i++) {
             for (int j = 0; j < n_max; j++) {
-
+                result[i].add(this.terms[i].multiply(b.terms[i]));
             }
         }
+
         return this;
     }
 
@@ -120,20 +118,20 @@ public class Polynomial {
     public String toString() {
         StringBuilder sb = new StringBuilder("");
 
-        if (this.terms[this.terms.length - 1] != null) {
+        if (this.terms[this.terms.length - 1].getPos() != 0) {
             int last = this.terms.length - 1;
             sb.append(this.terms[last].getPos()).append("X^").append(last);
         }
 
         for (int i = this.terms.length - 2; i > 0; i--) {
             ModularInt coef = this.terms[i];
-            if (coef != null) {
+            if (coef.getPos() != 0) {
                 sb.append("+").append(coef.getPos()).append("X^").append(i);
             }
         }
 
         ModularInt constant = this.terms[0];
-        if (constant != null) {
+        if (constant.getPos() != 0) {
             sb.append("+").append(constant.getPos());
         }
         
