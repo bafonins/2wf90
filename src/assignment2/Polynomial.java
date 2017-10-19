@@ -69,7 +69,7 @@ public class Polynomial {
     }
 
     /**
-     * Sutracts {@code b} from {@code this} and reduces them `mod` m.
+     * Subtracts {@code b} from {@code this} and reduces them `mod` m.
      * @param b The second polynomial to subtract from {@code this}.
      * @return The difference of two polynomials.
      */
