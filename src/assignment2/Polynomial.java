@@ -50,7 +50,6 @@ public class Polynomial {
      * @return The sum of two polynomials.
      */
     public Polynomial sum(Polynomial b) {
-        System.out.println(Arrays.toString(b.terms));
         int n_max = Math.max(b.getDegree(), this.getDegree());
 
         this.extend(n_max + 1);
