@@ -1,5 +1,6 @@
 package assignment2;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -45,6 +46,36 @@ public class Polynomial {
         return this;
     }
 
+    /**
+     * Adds two ({@code this} and {@code b}) polynomials and reduces them `mod` m.
+     * @param b The second polynomial to sum with.
+     * @return The sum of two polynomials.
+     */
+    public Polynomial sum(Polynomial b) {
+        int n_max = Math.max(b.getDegree(), this.getDegree());
+
+        this.extend(n_max + 1);
+        b.extend(n_max + 1);
+
+        for (int i = 0; i < n_max; i++) {
+            if (this.terms[i] == null) {
+                this.terms[i] = b.terms[i];
+            } else {
+                this.terms[i].add(b.terms[i]);
+            }
+        }
+
+        return this;
+    }
+
+    /**
+     * Gets degree of the polynomial.
+     * @return Degree of the polynomial.
+     */
+    public int getDegree() {
+        return this.terms.length - 1;
+    }
+
 
     @Override
     public String toString() {
@@ -52,7 +83,7 @@ public class Polynomial {
 
         if (this.terms[this.terms.length - 1] != null) {
             int last = this.terms.length - 1;
-            sb.append(this.terms[last]).append("X^").append(last);
+            sb.append(this.terms[last].getPos()).append("X^").append(last);
         }
 
         for (int i = this.terms.length - 2; i > 0; i--) {
@@ -68,5 +99,15 @@ public class Polynomial {
         }
         
         return sb.toString();
+    }
+
+    /**
+     * Extends the polynomial to {@code length}.
+     * @param length The new length (degree + 1) of the polynomial.
+     */
+    public void extend(int length) {
+        if (this.terms.length == length) { return; }
+
+        this.terms = Arrays.copyOf(this.terms, length);
     }
 }

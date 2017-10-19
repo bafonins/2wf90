@@ -18,6 +18,15 @@ public class ModularInt {
         this.m = modulo;
     }
 
+    public ModularInt add(ModularInt b) {
+        if (b != null) {
+            this.number = this.getPos() + b.getPos();
+            this.number = this.getPos();
+        }
+
+        return this;
+    }
+
     /**
      * Gets a positive result after taking modulo {@code m}.
      * @return number `mod` m s.t. it is {@code >= 0}
@@ -56,6 +65,6 @@ public class ModularInt {
 
     @Override
     public String toString() {
-        return Integer.toString(this.number);
+        return Integer.toString(this.getPos());
     }
 }
