@@ -1,6 +1,8 @@
+package assignment1;
+
 /**
  * This class keeps track of the number of multiplications/additions for a certain
- * operations defined in the {@link Number} class.
+ * operations defined in the {@link assignment1.Number} class.
  */
 public class Counter {
 

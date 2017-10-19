@@ -1,3 +1,5 @@
+package assignment1;
+
 import java.util.Iterator;
 
 /**
@@ -18,9 +20,9 @@ public class Main {
 
             while (it.hasNext()) {
                 ExecutionCase ex = it.next();
-                Number num1 = new Number(ex.getFst(), ex.getRadix());
-                Number num2 = new Number(ex.getSnd(), ex.getRadix());
-                Number res = null;
+                assignment1.Number num1 = new assignment1.Number(ex.getFst(), ex.getRadix());
+                assignment1.Number num2 = new assignment1.Number(ex.getSnd(), ex.getRadix());
+                assignment1.Number res = null;
                 Counter counter = new Counter();
                 switch (ex.getOperation()) {
                     case ADD:
