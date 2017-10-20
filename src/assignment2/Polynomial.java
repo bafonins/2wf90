@@ -91,14 +91,17 @@ public class Polynomial {
 
         this.extend(n_max + 1);
         b.extend(n_max + 1);
+
         ModularInt[] result = new ModularInt[(n_max + 1) * 2];
         for (int i = 0; i < result.length; i++) { result[i] = new ModularInt(0, this.m); }
 
         for (int i = 0; i < n_max + 1; i++) {
             for (int j = 0; j < n_max + 1; j++) {
-                result[i].add(this.terms[i].multiply(b.terms[i]));
+                result[i + j].add(this.terms[i].multiply(b.terms[j]));
             }
         }
+
+        this.terms = result;
 
         return this;
     }
