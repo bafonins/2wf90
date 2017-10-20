@@ -117,6 +117,8 @@ public class Polynomial {
 
     @Override
     public String toString() {
+        if (this.getDegree() == 0) { return this.terms[0].toString(); }
+
         StringBuilder sb = new StringBuilder("");
 
         if (this.terms[this.getDegree()].getPos() != 0) {
