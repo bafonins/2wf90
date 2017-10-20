@@ -97,7 +97,7 @@ public class Polynomial {
 
         for (int i = 0; i < n_max + 1; i++) {
             for (int j = 0; j < n_max + 1; j++) {
-                result[i + j].add(this.terms[i].multiply(b.terms[j]));
+                result[i + j].add(new ModularInt(this.terms[i]).multiply(b.terms[j]));
             }
         }
 
