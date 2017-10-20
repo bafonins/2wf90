@@ -18,6 +18,11 @@ public class ModularInt {
         this.m = modulo;
     }
 
+    public ModularInt(ModularInt obj) {
+        this.number = obj.getPos();
+        this.m = obj.getM();
+    }
+
     public ModularInt add(ModularInt b) {
         this.number = (this.getPos() + b.getPos()) % this.m;
 
@@ -56,6 +61,14 @@ public class ModularInt {
         }
 
         return 0;
+    }
+
+    /**
+     * Gets the modulus of this integer.
+     * @return The modulus.
+     */
+    public int getM() {
+        return this.m;
     }
 
     /**
