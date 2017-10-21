@@ -32,6 +32,18 @@ public class Polynomial {
     }
 
     /**
+     * Creates a copy from existing instance of {@code Polynomial}.
+     * @param poly The polynomial to be as a reference.
+     */
+    public Polynomial(Polynomial poly) {
+        Objects.requireNonNull(terms);
+
+        this.m = poly.m;
+        this.terms = Arrays.copyOf(poly.terms, poly.terms.length);
+        this.reduce();
+    }
+
+    /**
      * Multiplies each term with {@code s} with every coefficient being reduced `mod` m.
      * @param s The multiple.
      * @return The polynomial after multiplying each term with {@code s}.
@@ -107,6 +119,32 @@ public class Polynomial {
     }
 
     /**
+     * Divides {@code this} with {@code b} using the long division method.
+     * @param b The polynomial to divide with, should not be zero.
+     * @return The result of long division. An array, where arr[0] = quotent, and arr[1] = remainder.
+     */
+    public Polynomial[] longDivision(Polynomial b) {
+        if (b.isZeroPolynomial()) {
+            throw new RuntimeException("Cannot divite with the zero polynomial");
+        }
+
+        Polynomial quotent = Polynomial.init(0, this.m, 0);
+        Polynomial remainder = new Polynomial(b);
+
+        while (remainder.getDegree() >= b.getDegree()) {
+            ModularInt lcR = remainder.terms[remainder.getDegree()];
+            ModularInt lcB = b.terms[b.getDegree()];
+            int degreeDiff = remainder.getDegree() - b.getDegree();
+            ModularInt div = lcR.divide(lcB);
+
+            quotent.sum(Polynomial.initSingle(degreeDiff, this.m, degreeDiff, div.getPos()));
+            remainder.difference(Polynomial.initSingle(degreeDiff, this.m, degreeDiff, div.getPos()).product(b));
+        }
+
+        return new Polynomial[] { quotent, remainder };
+    }
+
+    /**
      * Gets degree of the polynomial.
      * @return Degree of the polynomial.
      */
@@ -167,12 +205,50 @@ public class Polynomial {
             this.terms[i].set(this.terms[i].getPos());
         }
     }
-    
+
+    /**
+     * Determines whether this is the zero polynomial.
+     * @return {@code true} if this polynomial is the zero polynomial, {@code false} otherwise.
+     */
+    public boolean isZeroPolynomial() {
+        return this.getDegree() == 0 &&
+                this.terms[0].getPos() == 0;
+    }
+
+    /**
+     * Convenient method to create new polynomials from a list of coefficients.
+     * @param degree The degree of the polynomial.
+     * @param modulus The modulus.
+     * @param coefficients The list of coefficients.
+     * @return A new polynomial.
+     */
     public static Polynomial init(int degree, int modulus, Integer... coefficients) {
         ModularInt[] terms = new ModularInt[degree + 1];
 
         for (int i = 0; i < coefficients.length; i++) {
             terms[i] = new ModularInt(coefficients[i], modulus);
+        }
+
+        return new Polynomial(terms, modulus);
+    }
+
+    /**
+     * Convenient method to create new polynomials with a single coefficient.
+     * @param degree The degree of the polynomial.
+     * @param modulus The modulus.
+     * @param idx The index of the coefficient.
+     * @param coeff The coefficient.
+     * @return A new polynomial.
+     */
+    public static Polynomial initSingle(int degree, int modulus, int idx, int coeff) {
+        ModularInt[] terms = new ModularInt[degree + 1];
+
+        for (int i = 0; i < terms.length; i++) {
+            if (i == idx) {
+                terms[i] = new ModularInt(coeff, modulus);
+            } else {
+                terms[i] = new ModularInt(0, modulus);
+            }
         }
 
         return new Polynomial(terms, modulus);
