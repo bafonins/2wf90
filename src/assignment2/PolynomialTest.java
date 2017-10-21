@@ -418,6 +418,110 @@ public class PolynomialTest {
         assertEquals("3X^1", res[1].toString());
     }
 
+    @Test
+    public void testLongDivision4() {
+        int m = 5;
+
+        // 1X^1+1
+        Polynomial poly = getPolynomial(1, m, 1, 1);
+        // 4
+        Polynomial poly2 = getPolynomial(0, m, 4);
+
+        Polynomial[] res = poly.longDivision(poly2);
+
+        assertEquals("4X^1", res[0].toString());
+        assertEquals("1", res[1].toString());
+    }
+
+    @Test
+    public void testGCDSelf() {
+        int m = 5;
+        // 1X^2
+        Polynomial poly = getPolynomial(1, m, 0, 1);
+        Polynomial poly2 = getPolynomial(1, m, 0, 1);
+        String initial = poly.toString();
+
+        Polynomial gcd = poly.GCD(poly2);
+
+        assertEquals(initial, gcd.toString());
+    }
+
+    @Test
+    public void testGCDWithOne() {
+        int m = 5;
+        // 1X^2
+        Polynomial poly = getPolynomial(1, m, 0, 1);
+        Polynomial poly2 = getPolynomial(0, m, 1);
+
+        Polynomial gcd = poly.GCD(poly2);
+
+        assertEquals("1", gcd.toString());
+    }
+
+    @Test
+    public void testGCD1() {
+        int m = 5;
+        // 3X^3
+        Polynomial poly = getPolynomial(3, m, 0, 0, 0, 3);
+        Polynomial poly2 = getPolynomial(3, m, 0, 0, 0, 1);
+
+        Polynomial gcd = poly.GCD(poly2);
+
+        assertEquals("1X^3", gcd.toString());
+    }
+
+    @Test
+    public void testGCD2() {
+        int m = 5;
+        // 6X^3+1X^1+1
+        Polynomial poly = getPolynomial(3, m, 1, 1, 0, 6);
+        // 1X^3+1X^1+1
+        Polynomial poly2 = getPolynomial(3, m, 1, 1, 0, 1);
+
+        Polynomial gcd = poly.GCD(poly2);
+
+        assertEquals("1X^3+1X^1+1", gcd.toString());
+    }
+
+    @Test
+    public void testGCD3() {
+        int m = 5;
+        // 1X^3+1X^1+1
+        Polynomial poly = getPolynomial(3, m, 1, 1, 0, 1);
+        // 1X^3+1X^1+1
+        Polynomial poly2 = getPolynomial(3, m, 0, 0, 0, 1);
+
+        Polynomial gcd = poly.GCD(poly2);
+
+        assertEquals("1", gcd.toString());
+    }
+
+    @Test
+    public void testGCD4() {
+        int m = 5;
+        // 1X^5+1
+        Polynomial poly = getPolynomial(5, m, 1, 0, 0, 0, 0, 1);
+        // 1X^3+1
+        Polynomial poly2 = getPolynomial(3, m, 1, 0, 0, 1);
+
+        Polynomial gcd = poly.GCD(poly2);
+
+        assertEquals("1X^1+1", gcd.toString());
+    }
+
+    @Test
+    public void testGCD4Reversed() {
+        int m = 5;
+        // 1X^3+1
+        Polynomial poly = getPolynomial(3, m, 1, 0, 0, 1);
+        // 1X^5+1
+        Polynomial poly2 = getPolynomial(5, m, 1, 0, 0, 0, 0, 1);
+
+        Polynomial gcd = poly.GCD(poly2);
+
+        assertEquals("1X^1+1", gcd.toString());
+    }
+
 
 
     /**
