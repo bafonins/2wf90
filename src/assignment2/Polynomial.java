@@ -36,8 +36,6 @@ public class Polynomial {
      * @param poly The polynomial to be as a reference.
      */
     public Polynomial(Polynomial poly) {
-        Objects.requireNonNull(terms);
-
         this.m = poly.m;
         this.terms = Arrays.copyOf(poly.terms, poly.terms.length);
         this.reduce();
