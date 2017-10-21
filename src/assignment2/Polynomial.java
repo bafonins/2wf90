@@ -157,17 +157,17 @@ public class Polynomial {
      * @return An array containing polynomials x, y with {@code gcd(a,b)=x * this + y * b)}.
      * {@code res[0] = x, res[1] = y}.
      */
-    public Polynomial[] extendedGCD(Polynomial b) {
+    public static Polynomial[] extendedGCD(Polynomial a, Polynomial b) {
 
-        Polynomial x = Polynomial.initSingle(0, this.m, 0, 1), v = Polynomial.initSingle(0, this.m, 0, 1);
-        Polynomial y = Polynomial.initSingle(0, this.m, 0, 0), u = Polynomial.initSingle(0, this.m, 0, 0);
-        Polynomial fst = new Polynomial(this), snd = new Polynomial(b);
+        Polynomial x = Polynomial.initSingle(0, a.m, 0, 1), v = Polynomial.initSingle(0, a.m, 0, 1);
+        Polynomial y = Polynomial.initSingle(0, a.m, 0, 0), u = Polynomial.initSingle(0, a.m, 0, 0);
+        Polynomial fst = new Polynomial(a), snd = new Polynomial(b);
 
         while (!snd.isZeroPolynomial()) {
             Polynomial[] divResult = fst.longDivision(snd);
             Polynomial quotient = divResult[0];
             fst = snd;
-            snd = divResult[1];
+            snd = divResult[1]; // get remainder
 
             Polynomial x2 = x;
             Polynomial y2 = y;
@@ -187,16 +187,16 @@ public class Polynomial {
      * @param b The second polynomial.
      * @return The gcd of {@code this} and {@code }.
      */
-    public Polynomial GCD(Polynomial b) {
+    public static Polynomial GCD(Polynomial a, Polynomial b) {
         Polynomial fst;
         Polynomial snd;
 
-        if (this.getDegree() >= b.getDegree()) {
-            fst = new Polynomial(this);
+        if (a.getDegree() >= b.getDegree()) {
+            fst = new Polynomial(a);
             snd = new Polynomial(b);
         } else {
             fst = new Polynomial(b);
-            snd = new Polynomial(this);
+            snd = new Polynomial(a);
         }
 
         while(!snd.isZeroPolynomial()) {
