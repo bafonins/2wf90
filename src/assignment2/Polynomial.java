@@ -150,6 +150,55 @@ public class Polynomial {
     }
 
     /**
+     * Computes x and y such that {@code gcd(a,b)=x * this + y * b)}. See Algorithm 1.2.11
+     * (Course notes ffields, p. 7).
+     * @param b The second polynomial.
+     * @return An array containing polynomials x, y with {@code gcd(a,b)=x * this + y * b)}.
+     * {@code res[0] = x, res[1] = y}.
+     */
+    public Polynomial[] extendedEuclidian(Polynomial b) {
+
+        Polynomial x = Polynomial.initSingle(0, this.m, 0, 1), v = Polynomial.initSingle(0, this.m, 0, 1);
+        Polynomial y = Polynomial.initSingle(0, this.m, 0, 0), u = Polynomial.initSingle(0, this.m, 0, 0);
+        Polynomial fst = new Polynomial(this), snd = new Polynomial(b);
+
+        while (!snd.isZeroPolynomial()) {
+            Polynomial[] divResult = fst.longDivision(snd);
+            Polynomial quotient = divResult[0];
+            fst = snd;
+            snd = divResult[1];
+
+            Polynomial x2 = x;
+            Polynomial y2 = y;
+            x = u;
+            y = v;
+            u = x2.difference(new Polynomial(quotient).product(u));
+            v = y2.difference(new Polynomial(quotient).product(v));
+        }
+
+        return new Polynomial[] { x, y };
+    }
+
+
+    /**
+     * Computes the gcd of {@code this} and {@code b}. See Algorithm 1.2.10
+     * (Course notes ffields, p. 7).
+     * @param b The second polynomial.
+     * @return The gcd of {@code this} and {@code }.
+     */
+    public Polynomial gcd(Polynomial b) {
+        Polynomial fst = new Polynomial(this);
+        Polynomial snd = new Polynomial(b);
+
+        while(!snd.isZeroPolynomial()) {
+            Polynomial remainder = fst.longDivision(snd)[1];
+            fst = snd; snd = remainder;
+        }
+
+        return fst;
+    }
+
+    /**
      * Gets degree of the polynomial.
      * @return Degree of the polynomial.
      */
