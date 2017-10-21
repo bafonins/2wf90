@@ -42,6 +42,9 @@ public class ModularInt {
     }
 
     public ModularInt divide(ModularInt b) {
+        // in order to avoid dealing with decimal numbers,
+        // simply find the inverse and use it.
+        // a / b (mod m) = a * b^-1 (mod m)
         return this.multiply(new ModularInt(b).inverse());
     }
 
