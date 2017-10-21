@@ -208,6 +208,19 @@ public class Polynomial {
     }
 
     /**
+     * Determines whether {@code c} is congruent to {@code a} and {@code b}.
+     * @param a The first polynomial.
+     * @param b The second polynomial.
+     * @param c The third polynomial.
+     * @return {@code true} if {@code a} and {@code b} are congruent `mod m` to {@code c},
+     * {@code false} otherwise.
+     */
+    public static boolean congruent(Polynomial a, Polynomial b, Polynomial c) {
+        // if c | a - b, then c is congruent to both a and b
+        return (new Polynomial(a).difference(b)).longDivision(c)[1].isZeroPolynomial();
+    }
+
+    /**
      * Gets degree of the polynomial.
      * @return Degree of the polynomial.
      */

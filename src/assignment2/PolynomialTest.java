@@ -603,6 +603,34 @@ public class PolynomialTest {
         assertEquals(gcd.toString(), left.toString());
     }
 
+    @Test
+    public void testCongruent1() {
+        int m = 5;
+
+        // 1X^3
+        Polynomial poly = getPolynomial(3, m, 0, 0, 0, 1);
+        // 1X^2
+        Polynomial poly2 = getPolynomial(2, m, 0, 0, 1);
+        // 1X^1
+        Polynomial poly3 = getPolynomial(1, m, 0, 1);
+
+        assertTrue(Polynomial.congruent(poly, poly2, poly3));
+    }
+
+    @Test
+    public void testCongruent2() {
+        int m = 5;
+
+        // 1X^3
+        Polynomial poly = getPolynomial(3, m, 0, 0, 0, 1);
+        // 1X^2
+        Polynomial poly2 = getPolynomial(2, m, 0, 0, 1);
+        // 1X^1
+        Polynomial poly3 = getPolynomial(1, m, 1, 1);
+
+        assertFalse(Polynomial.congruent(poly, poly2, poly3));
+    }
+
     /**
      * A helper method. Constructs a polynomial with given coefficients and modulus.
      * @param degree The degree of the polynomial.
