@@ -130,7 +130,8 @@ public class Polynomial {
         Polynomial quotient = Polynomial.init(0, this.m, 0);
         Polynomial remainder = new Polynomial(this);
 
-        while (remainder.getDegree() >= b.getDegree() && !remainder.isZeroPolynomial()) {
+        while (remainder.getDegree() >= b.getDegree() &&
+                !(remainder.isZeroPolynomial() || remainder.isOnePolynomial())) {
             ModularInt lcR = new ModularInt(remainder.terms[remainder.getDegree()]);
             ModularInt lcB = new ModularInt(b.terms[b.getDegree()]);
             int degreeDiff = remainder.getDegree() - b.getDegree();
@@ -187,8 +188,16 @@ public class Polynomial {
      * @return The gcd of {@code this} and {@code }.
      */
     public Polynomial GCD(Polynomial b) {
-        Polynomial fst = new Polynomial(this);
-        Polynomial snd = new Polynomial(b);
+        Polynomial fst;
+        Polynomial snd;
+
+        if (this.getDegree() >= b.getDegree()) {
+            fst = new Polynomial(this);
+            snd = new Polynomial(b);
+        } else {
+            fst = new Polynomial(b);
+            snd = new Polynomial(this);
+        }
 
         while(!snd.isZeroPolynomial()) {
             Polynomial remainder = fst.longDivision(snd)[1];
@@ -267,6 +276,15 @@ public class Polynomial {
     public boolean isZeroPolynomial() {
         return this.getDegree() == 0 &&
                 this.terms[0].getPos() == 0;
+    }
+
+    /**
+     * Determines whether this is the one polynomial.
+     * @return {@code true} if this polynomial is the one polynomial, {@code false} otherwise.
+     */
+    public boolean isOnePolynomial() {
+        return this.getDegree() == 0 &&
+                this.terms[0].getPos() == 1;
     }
 
     /**
