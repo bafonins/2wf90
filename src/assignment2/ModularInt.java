@@ -42,7 +42,7 @@ public class ModularInt {
     }
 
     public ModularInt divide(ModularInt b) {
-        return this.inverse().multiply(b);
+        return this.multiply(new ModularInt(b).inverse());
     }
 
     /**
