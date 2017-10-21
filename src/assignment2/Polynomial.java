@@ -128,16 +128,22 @@ public class Polynomial {
         }
 
         Polynomial quotient = Polynomial.init(0, this.m, 0);
-        Polynomial remainder = new Polynomial(b);
+        Polynomial remainder = new Polynomial(this);
+        while (remainder.getDegree() >= b.getDegree() && !remainder.isZeroPolynomial()) {
 
-        while (remainder.getDegree() >= b.getDegree()) {
-            ModularInt lcR = remainder.terms[remainder.getDegree()];
-            ModularInt lcB = b.terms[b.getDegree()];
+            ModularInt lcR = new ModularInt(remainder.terms[remainder.getDegree()]);
+            ModularInt lcB = new ModularInt(b.terms[b.getDegree()]);
             int degreeDiff = remainder.getDegree() - b.getDegree();
             ModularInt div = lcR.divide(lcB);
 
-            quotient.sum(Polynomial.initSingle(degreeDiff, this.m, degreeDiff, div.getPos()));
-            remainder.difference(Polynomial.initSingle(degreeDiff, this.m, degreeDiff, div.getPos()).product(b));
+            Polynomial poly = Polynomial.initSingle(
+                    degreeDiff,
+                    this.m,
+                    degreeDiff,
+                    div.getPos());
+
+            quotient.sum(poly);
+            remainder.difference(poly.product(b));
         }
 
         return new Polynomial[] { quotient, remainder };
@@ -243,12 +249,9 @@ public class Polynomial {
         ModularInt[] terms = new ModularInt[degree + 1];
 
         for (int i = 0; i < terms.length; i++) {
-            if (i == idx) {
-                terms[i] = new ModularInt(coeff, modulus);
-            } else {
-                terms[i] = new ModularInt(0, modulus);
-            }
+            terms[i] = new ModularInt(0, modulus);
         }
+        terms[idx] = new ModularInt(coeff, modulus);
 
         return new Polynomial(terms, modulus);
     }
