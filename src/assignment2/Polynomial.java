@@ -150,13 +150,13 @@ public class Polynomial {
     }
 
     /**
-     * Computes x and y such that {@code gcd(a,b)=x * this + y * b)}. See Algorithm 1.2.11
+     * Computes x and y such that {@code gcd(a,b) = x * this + y * b)}. See Algorithm 1.2.11
      * (Course notes ffields, p. 7).
      * @param b The second polynomial.
      * @return An array containing polynomials x, y with {@code gcd(a,b)=x * this + y * b)}.
      * {@code res[0] = x, res[1] = y}.
      */
-    public Polynomial[] extendedEuclidian(Polynomial b) {
+    public Polynomial[] extendedGCD(Polynomial b) {
 
         Polynomial x = Polynomial.initSingle(0, this.m, 0, 1), v = Polynomial.initSingle(0, this.m, 0, 1);
         Polynomial y = Polynomial.initSingle(0, this.m, 0, 0), u = Polynomial.initSingle(0, this.m, 0, 0);
@@ -186,7 +186,7 @@ public class Polynomial {
      * @param b The second polynomial.
      * @return The gcd of {@code this} and {@code }.
      */
-    public Polynomial gcd(Polynomial b) {
+    public Polynomial GCD(Polynomial b) {
         Polynomial fst = new Polynomial(this);
         Polynomial snd = new Polynomial(b);
 
