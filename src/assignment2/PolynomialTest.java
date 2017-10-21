@@ -330,6 +330,94 @@ public class PolynomialTest {
         assertEquals("3X^7+7X^5+2X^4+3X^3+8X^2+4X^1+7", poly.toString());
     }
 
+    @Test
+    public void testLongDivisionWithOne() {
+        int m = 5;
+
+        // 2X^3+2X^2+2X^1+2
+        Polynomial poly = getPolynomial(3, m, 2, 2, 2, 2);
+        Polynomial one = getPolynomial(0, m, 1);
+
+        Polynomial[] res = poly.longDivision(one);
+
+        assertEquals("2X^3+2X^2+2X^1+2", res[0].toString());
+        assertEquals("0", res[1].toString());
+    }
+
+    @Test
+    public void testLongDivisionWithTwo() {
+        int m = 5;
+
+        // 2X^3+2X^2+2X^1+2
+        Polynomial poly = getPolynomial(3, m, 2, 2, 2, 2);
+        Polynomial two = getPolynomial(0, m, 2);
+
+        Polynomial[] res = poly.longDivision(two);
+
+        assertEquals("1X^3+1X^2+1X^1+1", res[0].toString());
+        assertEquals("0", res[1].toString());
+    }
+
+    @Test
+    public void testLongDivisionWithSelf() {
+        int m = 5;
+
+        // 1X^3+1X^2+1X^1+1
+        Polynomial poly = getPolynomial(3, m, 1, 1, 1, 1);
+        // 1X^3+1X^2+1X^1+1
+        Polynomial poly2 = getPolynomial(3, m, 1, 1, 1, 1);
+
+        Polynomial[] res = poly.longDivision(poly2);
+
+        assertEquals("1", res[0].toString());
+        assertEquals("0", res[1].toString());
+    }
+
+    @Test
+    public void testLongDivision1() {
+        int m = 5;
+
+        // 1X^3+1X^2+1X^1+1
+        Polynomial poly = getPolynomial(3, m, 1, 1, 1, 1);
+        // 1X^1
+        Polynomial poly2 = getPolynomial(1, m, 0, 1);
+
+        Polynomial[] res = poly.longDivision(poly2);
+
+        assertEquals("1X^2+1X^1+1", res[0].toString());
+        assertEquals("1", res[1].toString());
+    }
+
+    @Test
+    public void testLongDivision2() {
+        int m = 5;
+
+        // 3X^3+2X^2+1X^1+1
+        Polynomial poly = getPolynomial(3, m, 1, 1, 2, 3);
+        // 1X^2+1X^1
+        Polynomial poly2 = getPolynomial(2, m, 0, 1, 1);
+
+        Polynomial[] res = poly.longDivision(poly2);
+
+        assertEquals("3X^1+4", res[0].toString());
+        assertEquals("2X^1+1", res[1].toString());
+    }
+
+    @Test
+    public void testLongDivision3() {
+        int m = 5;
+
+        // 3X^3+3X^2
+        Polynomial poly = getPolynomial(3, m, 0, 0, 3, 3);
+        // 4X^3+4X^2+1X^1
+        Polynomial poly2 = getPolynomial(3, m, 0, 1, 4, 4);
+
+        Polynomial[] res = poly.longDivision(poly2);
+
+        assertEquals("2", res[0].toString());
+        assertEquals("3X^1", res[1].toString());
+    }
+
 
 
     /**
