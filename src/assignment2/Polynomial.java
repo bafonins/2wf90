@@ -167,4 +167,14 @@ public class Polynomial {
             this.terms[i].set(this.terms[i].getPos());
         }
     }
+    
+    public static Polynomial init(int degree, int modulus, Integer... coefficients) {
+        ModularInt[] terms = new ModularInt[degree + 1];
+
+        for (int i = 0; i < coefficients.length; i++) {
+            terms[i] = new ModularInt(coefficients[i], modulus);
+        }
+
+        return new Polynomial(terms, modulus);
+    }
 }
