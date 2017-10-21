@@ -119,16 +119,17 @@ public class Polynomial {
     }
 
     /**
-     * Divides {@code this} with {@code b} using the long division method.
+     * Divides {@code this} with {@code b} using the long division method. See p. 5 in
+     * the course notes on ffields (Algorithm 1.2.6).
      * @param b The polynomial to divide with, should not be zero.
-     * @return The result of long division. An array, where arr[0] = quotent, and arr[1] = remainder.
+     * @return The result of long division. An array, where arr[0] = quotient, and arr[1] = remainder.
      */
     public Polynomial[] longDivision(Polynomial b) {
         if (b.isZeroPolynomial()) {
             throw new RuntimeException("Cannot divite with the zero polynomial");
         }
 
-        Polynomial quotent = Polynomial.init(0, this.m, 0);
+        Polynomial quotient = Polynomial.init(0, this.m, 0);
         Polynomial remainder = new Polynomial(b);
 
         while (remainder.getDegree() >= b.getDegree()) {
@@ -137,11 +138,11 @@ public class Polynomial {
             int degreeDiff = remainder.getDegree() - b.getDegree();
             ModularInt div = lcR.divide(lcB);
 
-            quotent.sum(Polynomial.initSingle(degreeDiff, this.m, degreeDiff, div.getPos()));
+            quotient.sum(Polynomial.initSingle(degreeDiff, this.m, degreeDiff, div.getPos()));
             remainder.difference(Polynomial.initSingle(degreeDiff, this.m, degreeDiff, div.getPos()).product(b));
         }
 
-        return new Polynomial[] { quotent, remainder };
+        return new Polynomial[] { quotient, remainder };
     }
 
     /**
