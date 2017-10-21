@@ -38,5 +38,4 @@ public class ModularIntTest {
         int m = 83;
         assertEquals("1", new ModularInt(1, m).inverse().toString());
     }
-
 }
