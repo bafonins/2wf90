@@ -604,6 +604,17 @@ public class PolynomialTest {
     }
 
     @Test
+    public void testExtendedGCD3() {
+        int modulo = 5;
+        Polynomial poly = getPolynomial(5, modulo, 0, 4, 0, 0, 0, 1);
+        Polynomial poly2 = getPolynomial(3, modulo, 3, 0, 0, 1);
+
+        Polynomial[] res = Polynomial.extendedGCD(poly, poly2);
+        assertEquals("2X^1+1", res[0].toString());
+        assertEquals("3X^3+4X^2+1", res[1].toString());
+    }
+
+    @Test
     public void testCongruent1() {
         int m = 5;
 
