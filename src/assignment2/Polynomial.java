@@ -37,7 +37,12 @@ public class Polynomial {
      */
     public Polynomial(Polynomial poly) {
         this.m = poly.m;
-        this.terms = Arrays.copyOf(poly.terms, poly.terms.length);
+        int length = poly.terms.length;
+        ModularInt[] ts = new ModularInt[length];
+        for (int i = 0; i < length; i++) {
+            ts[i] = new ModularInt(poly.terms[i]);
+        }
+        this.terms = ts;
         this.reduce();
     }
 
