@@ -12,7 +12,7 @@ public class FField {
 
     private int p;
     private final Polynomial poly;
-    public Polynomial[] elements;
+    private Polynomial[] elements;
 
     /**
      * Initializes a new instance of {@code FField}
@@ -50,7 +50,7 @@ public class FField {
     private void generateOfDegree(int ofDegree, int m, int idx, ArrayList<Polynomial> l, ModularInt[] ts) {
 
         if (idx == ofDegree + 1) {
-            l.add(new Polynomial(ts, m));
+            l.add(new Polynomial(ts, this.p));
             return;
         }
 
@@ -58,13 +58,38 @@ public class FField {
             for (int j = idx; j <= ofDegree; j++) {
                 ts[j] = new ModularInt(i, this.p);
             }
-            generateOfDegree(ofDegree, m + 1, idx + 1, l, ts.clone());
+            generateOfDegree(ofDegree, m + 1, idx + 1, l, Arrays.copyOf(ts, ts.length));
         }
     }
 
     public Polynomial[][] produceAdditionTable() {
+        int length = this.elements.length;
+        Polynomial[][] result = new Polynomial[length][length];
 
-        return null;
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length; j++) {
+                result[i][j] = new Polynomial(this.elements[i]).sum(this.elements[j]);
+            }
+        }
+
+        return result;
+    }
+
+    public Polynomial[][] produceMultiplicationTable() {
+        int length = this.elements.length;
+        Polynomial[][] result = new Polynomial[length][length];
+
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length; j++) {
+                // multiply and then divide by the bounding polynomial of
+                // this field to find appropriate representative(that is remainder).
+                result[i][j] = new Polynomial(this.elements[i])
+                        .product(new Polynomial(this.elements[j]))
+                        .longDivision(new Polynomial(this.poly))[1];
+            }
+        }
+
+        return result;
     }
 
     public Polynomial getPoly() {
