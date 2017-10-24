@@ -24,6 +24,23 @@ public class PolynomialTest {
     }
 
     @Test
+    public void testSumWithZeroReversed() {
+        int m = 7;
+        // 1X^4+1X^1+3
+        Polynomial poly = new Polynomial(new ModularInt[] {
+                new ModularInt(3, m),
+                new ModularInt(1, m),
+                new ModularInt(0, m),
+                new ModularInt(0, m),
+                new ModularInt(1, m)}, m);
+        Polynomial polyZero = new Polynomial(new ModularInt[] {new ModularInt(0, m)}, m);
+
+        String beforeSum = poly.toString();
+        polyZero.sum(poly);
+        assertEquals(beforeSum, poly.toString());
+    }
+
+    @Test
     public void testSumWithOne() {
         int m = 7;
         // 1X^4+1X^1+3
