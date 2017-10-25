@@ -119,11 +119,11 @@ public class FField {
      * @return The inverse of {@code a} or {@code null} if it is not invertible.
      */
     public Polynomial inverse(Polynomial a) {
+        // a.sum(Polynomial.initSingle(0, this.p, 0, 0)) is used reduce the polynomial a
         Polynomial gcd = Polynomial.GCD(a, this.poly);
-        Polynomial[] xy = Polynomial.extendedGCD(a, this.poly);
 
         if (gcd.isOnePolynomial()) {
-            return xy[0];
+            return Polynomial.extendedGCD(a, this.poly)[0];
         } else {
             return null;
         }
