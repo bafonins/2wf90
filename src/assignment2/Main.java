@@ -9,9 +9,9 @@ public class Main {
     public static void main(String[] args) {
 
         printDescription();
-        printCommands();
 
         while (true) {
+            printCommands();
             int op = scan.nextInt();
             int p, number, degree;
             ModularInt[] ints;
@@ -118,7 +118,7 @@ public class Main {
 
     private static void printCommands() {
         System.out.println("=============== LIST OF COMMANDS =================");
-        System.out.println("\u21b3 Type: '1' to calculate integer mod p, ");
+        System.out.println("\u21b3 Type '1' to calculate integer mod p, ");
         System.out.println("  where p is prime.");
         System.out.println("\u21b3 Type '2' to calculate polynomial mod p, ");
         System.out.println("  where p is prime. ");
