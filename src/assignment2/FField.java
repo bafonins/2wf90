@@ -68,7 +68,7 @@ public class FField {
 
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < length; j++) {
-                result[i][j] = new Polynomial(this.elements[i]).sum(this.elements[j]);
+                result[i][j] = this.sum(this.elements[i], this.elements[j]);
             }
         }
 
@@ -81,15 +81,52 @@ public class FField {
 
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < length; j++) {
-                // multiply and then divide by the bounding polynomial of
-                // this field to find appropriate representative(that is remainder).
-                result[i][j] = new Polynomial(this.elements[i])
-                        .product(new Polynomial(this.elements[j]))
-                        .longDivision(new Polynomial(this.poly))[1];
+                result[i][j] = this.product(this.elements[i], this.elements[j]);
             }
         }
 
         return result;
+    }
+
+    public Polynomial sum(Polynomial a, Polynomial b) {
+        Polynomial sum = new Polynomial(a).sum(b);
+        return sum.longDivision(this.poly)[1];
+    }
+
+    public Polynomial product(Polynomial a, Polynomial b) {
+        Polynomial product = new Polynomial(a).product(b);
+        return product.longDivision(this.poly)[1];
+    }
+
+    /**
+     * Computes a * b^1
+     * @param a The first polynomial.
+     * @param b The second polynomial.
+     * @return a * b^1 or {@code null} if {@code b} is not invertible/zero.
+     */
+    public Polynomial quotent(Polynomial a, Polynomial b) {
+        Polynomial inverseB = this.inverse(b);
+        if (inverseB == null || inverseB.isZeroPolynomial()) {
+            return null;
+        }
+
+        return this.product(a, b);
+    }
+
+    /**
+     * Finds an inverse of {@code a}. See the course notes, p. 18, Algorithm 2.3.3
+     * @param a The polynomial for which to get an inverse.
+     * @return The inverse of {@code a} or {@code null} if it is not invertible.
+     */
+    public Polynomial inverse(Polynomial a) {
+        Polynomial gcd = Polynomial.GCD(a, this.poly);
+        Polynomial[] xy = Polynomial.extendedGCD(a, this.poly);
+
+        if (gcd.isOnePolynomial()) {
+            return xy[0];
+        } else {
+            return null;
+        }
     }
 
     public Polynomial getPoly() {
