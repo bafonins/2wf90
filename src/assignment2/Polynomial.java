@@ -136,7 +136,7 @@ public class Polynomial {
         Polynomial remainder = new Polynomial(this);
 
         while (remainder.getDegree() >= b.getDegree() &&
-                !(remainder.isZeroPolynomial() || remainder.isOnePolynomial())) {
+                !(remainder.isZeroPolynomial())) {
             ModularInt lcR = new ModularInt(remainder.terms[remainder.getDegree()]);
             ModularInt lcB = new ModularInt(b.terms[b.getDegree()]);
             int degreeDiff = remainder.getDegree() - b.getDegree();

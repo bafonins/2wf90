@@ -446,8 +446,8 @@ public class PolynomialTest {
 
         Polynomial[] res = poly.longDivision(poly2);
 
-        assertEquals("4X^1", res[0].toString());
-        assertEquals("1", res[1].toString());
+        assertEquals("4X^1+4", res[0].toString());
+        assertEquals("0", res[1].toString());
     }
 
     @Test
