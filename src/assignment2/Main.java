@@ -152,8 +152,25 @@ public class Main {
                     System.out.println("\u21e8 Result = " + f.quotent(poly2, poly3));
                     break;
                 case 16:
+                    p = readModulus();
+                    degree = readDegree();
+                    poly1 = readFieldPolynomial(degree, p);
+                    degree = readDegree();
+                    poly2 = readPolynomial(degree, p);
+                    f = new FField(p, poly1);
+                    System.out.println("\u21e8 Result = polynomial is " + (f.isIrreducible(poly2)
+                            ? "irreducible"
+                            : "reducible"
+                        + "in Z/" + p + "/(" + poly1 + ")"));
                     break;
                 case 17:
+                    p = readModulus();
+                    degree = readDegree();
+                    poly1 = readFieldPolynomial(degree, p);
+                    degree = readDegree();
+                    f = new FField(p, poly1);
+                    System.out.println("\u21e8 Result = " + f.generateIrreducible(degree) +
+                        " is irreducible " + "in Z/" + p + "/(" + poly1 + ") width degree of" + degree);
                     break;
                 case 18:
                     return;
@@ -195,18 +212,9 @@ public class Main {
         System.out.println("\u21b3 Type '13' to add two polynomials in a field. (1st + 2nd)");
         System.out.println("\u21b3 Type '14' to multiply two polynomials in a field. (1st * 2nd)");
         System.out.println("\u21b3 Type '15' to calculate q quotient of two polynomials. (1st * 2nd^-1)");
-        System.out.println("\u21b3 Type '16' TODO");
-        System.out.println("\u21b3 Type '17' TODO");
+        System.out.println("\u21b3 Type '16' to determine whether a polynomial is irreducible in a field");
+        System.out.println("\u21b3 Type '17' to generate an irreducible polynomial in a field");
         System.out.println("\u21b3 Type '18' to stop the program");
-
-
-
-
-
-
-
-
-
         System.out.println("==================================================");
 
     }

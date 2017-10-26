@@ -3,6 +3,7 @@ package assignment2;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Random;
 
 /**
  * This class represents a finite field Z/pZ/(f(x)) where f(x) is an irreducible polynomial and
@@ -127,6 +128,66 @@ public class FField {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Checks whether {@code a} is irreducible in {@code this} field.
+     * @param a The polynomial to test.
+     * @return {@code true} if {@code a} is irreducible, {@code false} otherwise.
+     */
+    public boolean isIrreducible(Polynomial a) {
+        if (a.getDegree() > 0 && a.getDegree() <= 1) {
+            return true;
+        } else if (a.getDegree() <= 0) {
+            return false;
+        }
+
+        for (int i = 0; i < this.elements.length; i++) {
+            Polynomial el = this.elements[i];
+
+            if (el.getDegree() == 0) continue;
+
+            Polynomial remainder = a.longDivision(el)[1];
+            if (remainder.isZeroPolynomial() && a.getDegree() != el.getDegree()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public Polynomial generateIrreducible(int degree) {
+
+        Random generator = new Random();
+        while (true) {
+            ModularInt[] ts = new ModularInt[degree + 1];
+
+            for (int i = 0; i <= degree; i++) {
+                int coef = generator.nextInt(this.p);
+                ts[i] = i == degree && coef == 0
+                        ? new ModularInt(1, this.p)
+                        : new ModularInt(coef, this.p);
+            }
+
+            Polynomial poly = new Polynomial(ts, this.p);
+
+            if (this.isIrreducible(poly)) return poly;
+        }
+    }
+
+    /**
+     * Determines if {@code a} is in {@code this} field.
+     * @param a The polynomial to check.
+     * @return {@code true} if {@code a} is in the field, {@code false} otherwise.
+     */
+    public boolean contains(Polynomial a) {
+        for (int i = 0; i < this.elements.length; i++) {
+            if (a.equals(this.elements[i])) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public Polynomial getPoly() {

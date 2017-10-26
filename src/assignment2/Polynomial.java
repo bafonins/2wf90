@@ -263,6 +263,29 @@ public class Polynomial {
         return sb.toString();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Polynomial)) return false;
+
+        Polynomial that = (Polynomial) o;
+
+        if (this.getDegree() != that.getDegree()) return false;
+        if (this.getM() != that.getM()) return false;
+
+        for (int i = 0; i < this.getDegree() + 1; i++) {
+            int val1 = this.terms[i].getPos();
+            int val2 = that.terms[i].getPos();
+
+            if (val1 != val2) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
     /**
      * Extends the polynomial to {@code length}.
      * @param length The new length (degree + 1) of the polynomial.
@@ -285,6 +308,10 @@ public class Polynomial {
         for (int i = 0; i < this.terms.length; i++) {
             this.terms[i].set(this.terms[i].getPos());
         }
+    }
+
+    public int getM() {
+        return this.m;
     }
 
     /**

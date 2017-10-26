@@ -61,4 +61,11 @@ public class FFieldTest {
             }
         }
     }
+
+    @Test
+    public void testIrreducible() {
+        FField field = new FField(7, Polynomial.init(3, 7, 1, 1, 1, 1));
+        Polynomial poly = Polynomial.init(2, 7, 3, 0, 1);
+        assertFalse(field.isIrreducible(poly));
+    }
 }
