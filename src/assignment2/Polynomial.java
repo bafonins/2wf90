@@ -193,16 +193,8 @@ public class Polynomial {
      * @return The gcd of {@code this} and {@code }.
      */
     public static Polynomial GCD(Polynomial a, Polynomial b) {
-        Polynomial fst;
-        Polynomial snd;
-
-        if (a.getDegree() >= b.getDegree()) {
-            fst = new Polynomial(a);
-            snd = new Polynomial(b);
-        } else {
-            fst = new Polynomial(b);
-            snd = new Polynomial(a);
-        }
+        Polynomial fst = new Polynomial(a);
+        Polynomial snd = new Polynomial(b);
 
         while(!snd.isZeroPolynomial()) {
             Polynomial remainder = fst.longDivision(snd)[1];

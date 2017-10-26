@@ -510,12 +510,12 @@ public class PolynomialTest {
 
         // 1X^3+1X^1+1
         Polynomial poly = getPolynomial(3, m, 1, 1, 0, 1);
-        // 1X^3+1X^1+1
+        // 1X^3
         Polynomial poly2 = getPolynomial(3, m, 0, 0, 0, 1);
 
         Polynomial gcd = Polynomial.GCD(poly, poly2);
 
-        assertEquals("1", gcd.toString());
+        assertEquals("4", gcd.toString());
     }
 
     @Test
@@ -629,6 +629,18 @@ public class PolynomialTest {
         Polynomial[] res = Polynomial.extendedGCD(poly, poly2);
         assertEquals("2X^1+1", res[0].toString());
         assertEquals("3X^3+4X^2+1", res[1].toString());
+    }
+
+    @Test
+    public void testExtendedGCD4() {
+        int modulo = 2;
+        Polynomial poly = getPolynomial(6, modulo, 1, 1, 0, 0, 1, 0, 1);
+        Polynomial poly2 = getPolynomial(8, modulo, 1, 1, 0, 1, 1, 0, 0, 0, 1);
+
+        Polynomial[] res = Polynomial.extendedGCD(poly, poly2);
+
+        assertEquals("1X^7+1X^6+1X^3+1X^1", res[0].toString());
+        assertEquals("1X^5+1X^4+1X^3+1X^2+1", res[1].toString());
     }
 
     @Test
