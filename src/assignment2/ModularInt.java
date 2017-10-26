@@ -112,6 +112,8 @@ public class ModularInt {
         return this.modulus;
     }
 
+    public int getRawValue() { return this.number ;}
+
 
     public ModularInt set(int n) {
         this.number = n;

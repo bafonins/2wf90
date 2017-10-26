@@ -3,8 +3,6 @@ package assignment2;
 import org.junit.Test;
 
 
-import java.util.Arrays;
-
 import static org.junit.Assert.*;
 
 public class FFieldTest {
@@ -62,7 +60,5 @@ public class FFieldTest {
                 assertEquals(expected[i][j], res[i][j].toString());
             }
         }
-
     }
-
 }

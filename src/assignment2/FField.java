@@ -137,6 +137,10 @@ public class FField {
         return this.p;
     }
 
+    public Polynomial[] getElements() {
+        return elements;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("{ ");
