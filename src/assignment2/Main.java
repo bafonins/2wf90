@@ -158,10 +158,10 @@ public class Main {
                     degree = readDegree();
                     poly2 = readPolynomial(degree, p);
                     f = new FField(p, poly1);
-                    System.out.println("\u21e8 Result = polynomial is " + (f.isIrreducible(poly2)
+                    System.out.println("\n\u21e8 Result = polynomial is " + (f.isIrreducible(poly2)
                             ? "irreducible"
                             : "reducible"
-                        + "in Z/" + p + "/(" + poly1 + ")"));
+                        + " in Z/" + p + "/(" + poly1 + ")\n"));
                     break;
                 case 17:
                     p = readModulus();
@@ -169,8 +169,8 @@ public class Main {
                     poly1 = readFieldPolynomial(degree, p);
                     degree = readDegree();
                     f = new FField(p, poly1);
-                    System.out.println("\u21e8 Result = " + f.generateIrreducible(degree) +
-                        " is irreducible " + "in Z/" + p + "/(" + poly1 + ") width degree of" + degree);
+                    System.out.println("\n\u21e8 Result = " + f.generateIrreducible(degree) +
+                        " is irreducible " + "in Z/" + p + "/(" + poly1 + ") width degree of" + degree + "\n");
                     break;
                 case 18:
                     return;
