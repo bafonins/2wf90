@@ -267,7 +267,7 @@ public class Main {
     }
 
     private static int readModulus() {
-        System.out.println("Input modulus p, where 1 < p < 100");
+        System.out.print("Input modulus p, where 1 < p < 100 = ");
         return scan.nextInt();
     }
 

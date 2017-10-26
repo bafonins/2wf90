@@ -120,7 +120,7 @@ public class FField {
      * @return The inverse of {@code a} or {@code null} if it is not invertible.
      */
     public Polynomial inverse(Polynomial a) {
-        // a.sum(Polynomial.initSingle(0, this.p, 0, 0)) is used reduce the polynomial a
+        this.sum(a, Polynomial.initSingle(0, this.p, 0, 0)); // is used to reduce polynomial in the field
         Polynomial gcd = Polynomial.GCD(a, this.poly);
 
         if (gcd.isOnePolynomial()) {
@@ -136,6 +136,7 @@ public class FField {
      * @return {@code true} if {@code a} is irreducible, {@code false} otherwise.
      */
     public boolean isIrreducible(Polynomial a) {
+        this.sum(a, Polynomial.initSingle(0, this.p, 0, 0)); // is used to reduce polynomial in the field
         if (a.getDegree() > 0 && a.getDegree() <= 1) {
             return true;
         } else if (a.getDegree() <= 0) {
